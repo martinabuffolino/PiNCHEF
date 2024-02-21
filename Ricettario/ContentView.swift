@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Ricettario
 //
-//  Created by Martina Buffolino on 19/02/24.
+//  Created by Martina Buffissima on 19/02/24.
 //
 // 
 import SwiftUI
@@ -54,16 +54,18 @@ struct Recipe: Identifiable {
 }
 
 struct ContentView: View {
+    //Variabili
+
     var body: some View {
         NavigationView {
             TabView {
-                HomeView()
+                HomeView(breakfastRecipe: breakfastRecipes)
                     .tabItem {
                         Image(systemName: "fork.knife")
                     }
                 SavedRecipesView()
                     .tabItem {
-                        Image(systemName: "bookmark")
+                        Image(systemName: "heart")
                     }
             }
         }
@@ -75,16 +77,27 @@ struct SavedRecipesView: View {
     var body: some View {
         Text("Saved Recipes")
             .navigationTitle("Saved")
+        // for each saved recipe
+        /*
+         NavigationLink(destination: RecipeDetailView(recipe: ricetta1)) {
+             RecipeCard(imageName: "risotto", title: "Risotto di Mare", description: "Frutti di mare del risotto alla pilota, un piatto tradizionale del mantovano che ha una preparazione curiosa", isSaved: false)
+         }
+         .buttonStyle(PlainButtonStyle())
+         */
     }
 }
 
 // Sezione home
 struct HomeView: View {
+    
+    let breakfastRecipe : [Recipe]
+    
     let ricetta1 = Recipe(title: "Risotto di Mare", ingredients: ["Ingrediente 1", "Ingrediente 2"], instructions: "Istruzioni 1", imageName: "risotto", description: "Description for Risotto di Mare")
         
         let ricetta2 = Recipe(title: "Ricetta 2", ingredients: ["Ingrediente 3", "Ingrediente 4"], instructions: "Istruzioni 2", imageName: "polpette", description: "Description for Ricetta 2")
         
     var body: some View {
+
         NavigationView {
             VStack {
                 Text("Cosa vuoi mangiare oggi?")
@@ -101,7 +114,7 @@ struct HomeView: View {
                         Button(action: {
                             // Azione da eseguire quando viene premuto il pulsante della colazione
                         }) {
-                        NavigationLink(destination: BreakfastRecipesView()) {
+                            NavigationLink(destination: BreakfastRecipesView()) {
                             ZStack{
                                 Text("Colazione")
                                     .font(.title)
@@ -127,7 +140,7 @@ struct HomeView: View {
                     Button(action: {
                         // Azione da eseguire quando viene premuto il pulsante del pranzo
                     }) {
-                    NavigationLink(destination: BreakfastRecipesView()) {
+                    NavigationLink(destination: LunchRecipesView()) {
                         ZStack{
                             Text("Pranzo")
                                 .font(.title)
@@ -153,7 +166,7 @@ struct HomeView: View {
                     Button(action: {
                         // Azione da eseguire quando viene premuto il pulsante della cena
                     }) {
-                    NavigationLink(destination: BreakfastRecipesView()) {
+                    NavigationLink(destination: DinnerRecipesView()) {
                         ZStack{
                             Text("Cena")
                                 .font(.title)
@@ -211,6 +224,7 @@ struct HomeView: View {
 
 // Sezione ricerca: COLAZIONE
 struct BreakfastRecipesView: View {
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -223,26 +237,6 @@ struct BreakfastRecipesView: View {
         .navigationTitle("Colazione")
     }
 }
-
-// Define your recipes here
-let breakfastRecipes = [
-    Recipe(title: "Pancake allo sciroppo d'acero", 
-           ingredients: ["Fiocchi di avena 160 g",
-                         "Latte intero 200 g",
-                         "Acqua 160 g",
-                         "Miele millefiori 1 cucchiaio",
-                         "Sale fino q.b.",
-                         "PER GUARNIRE",
-                         "Yogurt bianco naturale 2 cucchiai",
-                         "Fragole q.b.",
-                         "Cioccolato fondente in scaglie q.b.",
-                         "Sciroppo di acero q.b."],
-           instructions: "Instructions 1", imageName: "pancake", description: "Deliziosi pancake con sciroppo d'acero, perfetti per una colazione golosa."),
-    
-    Recipe(title: "Muffin con gocce di cioccolato", ingredients: ["Ingredient 3", "Ingredient 4"], instructions: "Instructions 2", imageName: "muffin", description: "Semplici e sofficissime tortine che rapiranno il vostro olfatto già mentre le starete sfornando con il loro delizioso profumo."),
-    Recipe(title: "Porridge", ingredients: ["Ingredient 5", "Ingredient 6"], instructions: "Instructions 3", imageName: "porridge", description: "Il porridge è la tipica ricetta della colazione all’inglese; facile e veloce: una zuppa di avena dolce per iniziare la giornata con la giusta carica di energia!"),
-    Recipe(title: "Dorayaki", ingredients: ["Ingredient 7", "Ingredient 8"], instructions: "Instructions 4", imageName: "dorayaki", description: "Queste golose frittelline, realizzabili anche in versione mini, ricordano molto i pancakes americani, ma vengono preparati senza l'aggiunta di grassi e farciti a mò di panino. In Giappone si usa servirli ripieni di una salsa dolce a base di fagioli azuki."),
-]
 
 // Sezione ricerca: PRANZO
 struct LunchRecipesView: View {
@@ -285,7 +279,7 @@ struct RecipeCard: View {
                 
                 Button(action: {
                     // Cambia lo stato di salvataggio quando viene premuto il pulsante
-                    isSaved.toggle()
+//                    savedRecipes.append()
                 }) {
                     Image(systemName: isSaved ? "heart.fill" : "heart")
                         .foregroundColor(isSaved ? .red : .white)
