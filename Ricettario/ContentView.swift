@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Ricettario
-//
-//  Created by Martina Buffissima on 19/02/24.
-//
-// 
 import SwiftUI
 
 // Struttura elenco ricette
@@ -36,7 +29,7 @@ struct RecipeView: View {
     
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-            RecipeCard(imageName: recipe.imageName, title: recipe.title, description: recipe.description, isSaved: recipe.isSaved)
+            RecipeCard(recipe: recipe)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -75,15 +68,17 @@ struct ContentView: View {
 // Sezione ricette salvate
 struct SavedRecipesView: View {
     var body: some View {
-        Text("Saved Recipes")
-            .navigationTitle("Saved")
-        // for each saved recipe
-        /*
-         NavigationLink(destination: RecipeDetailView(recipe: ricetta1)) {
-             RecipeCard(imageName: "risotto", title: "Risotto di Mare", description: "Frutti di mare del risotto alla pilota, un piatto tradizionale del mantovano che ha una preparazione curiosa", isSaved: false)
-         }
-         .buttonStyle(PlainButtonStyle())
-         */
+        VStack {
+            Text("Saved Recipes")
+                .navigationTitle("Saved")
+            
+            ForEach(savedRecipes) { savedRecipe in
+                NavigationLink(destination: RecipeDetailView(recipe: savedRecipe)) {
+                    RecipeCard(recipe: savedRecipe)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
     }
 }
 
@@ -203,17 +198,17 @@ struct HomeView: View {
                             VStack {
                                 // Rettangolo cliccabile per la ricetta
                                 NavigationLink(destination: RecipeDetailView(recipe: ricetta1)) {
-                                    RecipeCard(imageName: "risotto", title: "Risotto di Mare", description: "Frutti di mare del risotto alla pilota, un piatto tradizionale del mantovano che ha una preparazione curiosa", isSaved: false)
+                                    RecipeCard(recipe: breakfastRecipes[0])
                                 }
                                 .buttonStyle(PlainButtonStyle())
                                
                                 NavigationLink(destination: RecipeDetailView(recipe: ricetta2)) {
-                                        RecipeCard(imageName: "polpette", title: "Polpette al Sugo", description: "I modi per preparare le polpette di carne sono davvero tanti... ogni nonna custodisce la sua ricetta segretamente, ma oggi vogliamo mostrarvi come le prepariamo noi", isSaved: false)
+                                        RecipeCard(recipe: breakfastRecipes[1])
                                     }
                                 }
                             }
                         }
-                        .buttonStyle(PlainButtonStyle())
+//                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -262,25 +257,25 @@ struct DinnerRecipesView: View {
 
 // Rettangolo per la visualizzazione della ricetta
 struct RecipeCard: View {
-    var imageName: String
-    var title: String
-    var description: String
-    @State var isSaved: Bool // Utilizziamo @State per tenere traccia dello stato di salvataggio
+    var recipe: Recipe
     
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                Image(imageName)
+                Image(recipe.imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(height: 150) // Altezza ridotta dell'immagine
+                    .frame(height: 150)
                     .cornerRadius(8)
                     .clipped()
                 
                 Button(action: {
-                    // Cambia lo stato di salvataggio quando viene premuto il pulsante
-//                    savedRecipes.append()
+                    // Toggle the saved state when the button is pressed
+                    savedRecipes.append(recipe)
                 }) {
+                    var isSaved: Bool {
+                            savedRecipes.contains { $0.title == recipe.title }
+                        }
                     Image(systemName: isSaved ? "heart.fill" : "heart")
                         .foregroundColor(isSaved ? .red : .white)
                         .padding(8)
@@ -290,14 +285,14 @@ struct RecipeCard: View {
                 }
             }
             
-            Text(title)
-                .font(.headline) // Ridimensiona il titolo
+            Text(recipe.title)
+                .font(.headline)
                 .foregroundColor(.primary)
             
-            Text(description)
+            Text(recipe.description)
                 .foregroundColor(.secondary)
-                .font(.subheadline) // Ridimensiona la descrizione
-                .lineLimit(2) // Limita il numero di righe per la descrizione
+                .font(.subheadline)
+                .lineLimit(2)
         }
         .padding()
         .background(Color.white)
@@ -306,6 +301,7 @@ struct RecipeCard: View {
         .padding(.horizontal)
     }
 }
+
 
 // Barra di ricerca
 struct SearchBar: View {
