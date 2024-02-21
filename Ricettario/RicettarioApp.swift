@@ -2,7 +2,7 @@
 //  RicettarioApp.swift
 //  Ricettario
 //
-//  Created by Martina Buffolino on 19/02/24.
+//  Created by Marta on 19/02/24.
 //
 
 import SwiftUI
