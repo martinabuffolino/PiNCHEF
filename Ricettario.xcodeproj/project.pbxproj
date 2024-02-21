@@ -11,10 +11,6 @@
 		5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1A2B83A46D004D19ED /* ContentView.swift */; };
 		5BA5DF1D2B83A46F004D19ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */; };
 		5BA5DF212B83A46F004D19ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */; };
-		5BA5DF282B83A532004D19ED /* PancakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF272B83A532004D19ED /* PancakeView.swift */; };
-		5BA5DF2A2B83A5A4004D19ED /* MuffinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF292B83A5A4004D19ED /* MuffinView.swift */; };
-		5BA5DF2C2B83A73E004D19ED /* PorridgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF2B2B83A73E004D19ED /* PorridgeView.swift */; };
-		5BA5DF2E2B83B261004D19ED /* DorayakiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF2D2B83B261004D19ED /* DorayakiView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +20,6 @@
 		5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BA5DF1E2B83A46F004D19ED /* Ricettario.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ricettario.entitlements; sourceTree = "<group>"; };
 		5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5BA5DF272B83A532004D19ED /* PancakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeView.swift; sourceTree = "<group>"; };
-		5BA5DF292B83A5A4004D19ED /* MuffinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuffinView.swift; sourceTree = "<group>"; };
-		5BA5DF2B2B83A73E004D19ED /* PorridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorridgeView.swift; sourceTree = "<group>"; };
-		5BA5DF2D2B83B261004D19ED /* DorayakiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DorayakiView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +54,6 @@
 			children = (
 				5BA5DF182B83A46D004D19ED /* RicettarioApp.swift */,
 				5BA5DF1A2B83A46D004D19ED /* ContentView.swift */,
-				5BA5DF2D2B83B261004D19ED /* DorayakiView.swift */,
-				5BA5DF2B2B83A73E004D19ED /* PorridgeView.swift */,
-				5BA5DF292B83A5A4004D19ED /* MuffinView.swift */,
-				5BA5DF272B83A532004D19ED /* PancakeView.swift */,
 				5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */,
 				5BA5DF1E2B83A46F004D19ED /* Ricettario.entitlements */,
 				5BA5DF1F2B83A46F004D19ED /* Preview Content */,
@@ -151,11 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BA5DF2E2B83B261004D19ED /* DorayakiView.swift in Sources */,
-				5BA5DF2A2B83A5A4004D19ED /* MuffinView.swift in Sources */,
 				5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */,
-				5BA5DF2C2B83A73E004D19ED /* PorridgeView.swift in Sources */,
-				5BA5DF282B83A532004D19ED /* PancakeView.swift in Sources */,
 				5BA5DF192B83A46D004D19ED /* RicettarioApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
