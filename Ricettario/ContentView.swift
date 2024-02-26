@@ -456,21 +456,77 @@ struct RecipeDetailView: View {
     var recipe: Recipe
     
     var body: some View {
-        VStack {
-            Text(recipe.title)
-                .font(.title)
-            Divider()
-            Text("Ingredients:")
-                .font(.headline)
-            Text(recipe.ingredients.joined(separator: ", "))
-                .padding(.bottom)
-            Text("Instructions:")
-                .font(.headline)
-            Text(recipe.instructions)
-            Spacer()
+        ScrollView(.vertical, showsIndicators: false) {
+            ZStack{
+                GeometryReader{ geometry in
+                Image("sfondo")
+                 .resizable()
+                 .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                 .blur(radius: 5)
+                  .opacity(0.1)
+                   .frame(width: geometry.size.width)
+                            }
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(recipe.title)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal,15)
+                        .padding(.vertical)
+                    
+                    Image(recipe.imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .background(Color.yellow) // Imposta il colore di sfondo attorno all'immagine, se necessario
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .clipped()
+                        .shadow(radius: 10)
+                    
+                    Text("Ingredients:")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.yellow)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal,15)
+                    Divider()
+                    
+                    VStack(alignment: .leading) {
+                        ForEach(recipe.ingredients, id: \.self) { ingredient in
+                            Text("・\(ingredient)")
+                        }
+                    }
+                    .font(.title3)
+                    .fontWeight(.medium)
+                    .padding() // Aggiunge spazio intorno agli ingredienti all'interno del riquadro
+                    .frame(maxWidth: .infinity)
+                    .background(Color.clear) // Imposta il colore di sfondo del riquadro
+                    .clipShape(RoundedRectangle(cornerRadius: 10)) // Applica angoli arrotondati al riquadro
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color.yellow, lineWidth: 2) // Crea un bordo intorno al riquadro
+                    )
+                    
+                    Text("Instructions:")
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal,15)
+                    
+                    Text(recipe.instructions)
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .padding(.bottom, 20)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal,15)
+                }
+                .padding()
+            }
         }
-        .padding()
-        .navigationTitle(recipe.title)
+//                      .navigationBarTitle(Text(recipe.title), displayMode: .inline)
     }
 }
 
