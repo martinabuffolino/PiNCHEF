@@ -2,21 +2,11 @@ import SwiftUI
 
 // Sezione ContentView
 struct ContentView: View {
-    
-    // Variabile per inviare i dati al Watch
-    @StateObject private var watchConnector: WatchConnector = WatchConnector()
-    
     @State private var isHeartRed = false   // Stato per gestire il colore del cuore
     @State private var savedRecipes = [Recipe]() // Array contenente le ricette salvate
     @State private var randomRecipes: [Recipe] = []
-
+    
     var body: some View {
-        
-        // DA CAMBIARE: far coincidere col pulsante "Cucina"
-        Button("Test Conn") {
-            watchConnector.sendMessage(key: "testo", value: "cambiami")
-        }
-        
         NavigationView {
             TabView {
                 //  View per schermata principale
@@ -54,7 +44,7 @@ struct HomeView: View {
     @Binding var randomRecipes: [Recipe] // Array contenente le ricette casuali
     
     let antipastiRecipe : [Recipe]  // Elenco ricette per la colazione
-  
+    
     var body: some View {
         NavigationView {    // Consentire la navigazione tra le view
             VStack {
@@ -202,7 +192,7 @@ struct HomeView: View {
             .background(Color.white) // Sfondo bianco per il resto della schermata
         }
     }
-  
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
@@ -215,7 +205,7 @@ struct AntipastiView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     var antipastiRecipe: [Recipe]
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -237,7 +227,7 @@ struct AntipastiView: View {
             .navigationTitle("Antipasti")
         }
     }
-
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
@@ -250,7 +240,7 @@ struct PrimiView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     var primiRecipe: [Recipe]
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -272,20 +262,20 @@ struct PrimiView: View {
             .navigationTitle("Primi")
         }
     }
-
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
         // Verifichiamo se l'ID della ricetta corrente è presente nell'elenco delle ricette salvate
     }
 }
-    
+
 // Sezione ricerca: CENA
 struct SecondiView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     var secondiRecipe: [Recipe]
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -307,7 +297,7 @@ struct SecondiView: View {
             .navigationTitle("Secondi")
         }
     }
-
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
@@ -320,7 +310,7 @@ struct DolciView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     var dolciRecipe: [Recipe]
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -342,7 +332,7 @@ struct DolciView: View {
             .navigationTitle("Dolci")
         }
     }
-
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
@@ -353,7 +343,7 @@ struct DolciView: View {
 // Sezione ricette salvate
 struct SavedRecipesView: View {
     @Binding var savedRecipes: [Recipe]
-        
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -375,7 +365,7 @@ struct SavedRecipesView: View {
             .navigationTitle("Ricette Salvate")
         }
     }
-
+    
     // Metodo per controllare se una ricetta è salvata
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
         return savedRecipes.contains { $0.id == recipe.id }
@@ -386,7 +376,7 @@ struct SavedRecipesView: View {
 // Barra di ricerca
 struct SearchBar: View {
     @State private var searchText = ""
-
+    
     var body: some View {
         ZStack(alignment: .leading) {
             TextField("Cerca ricetta", text: $searchText)
@@ -395,7 +385,7 @@ struct SearchBar: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .padding(.horizontal, 15)
-
+            
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
                 .padding(.leading, 15) // Allinea l'icona con il bordo sinistro della TextField
@@ -431,7 +421,7 @@ struct RecipeCard: View {
                     .frame(height: 150)
                     .cornerRadius(8)
                     .clipped()
-
+                
                 Button(action: {
                     toggleHeart()
                 }) {
@@ -443,11 +433,11 @@ struct RecipeCard: View {
                         .padding(8)
                 }
             }
-
+            
             Text(recipe.title)
                 .font(.headline)
                 .foregroundColor(.primary)
-
+            
             Text(recipe.description)
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -463,62 +453,98 @@ struct RecipeCard: View {
 
 // Struttura dettagli ricetta con ingredinenti
 struct RecipeDetailView: View {
+    @StateObject private var watchConnector:WatchConnector = WatchConnector()
+    
     var recipe: Recipe
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ZStack{
-                GeometryReader{ geometry in
-                Image("sfondo")
-                 .resizable()
-                 .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                 .blur(radius: 5)
-                  .opacity(0.1)
-                   .frame(width: geometry.size.width)
-                            }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(recipe.title)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,15)
-                        .padding(.vertical)
+                VStack(alignment: .leading){
+                    ZStack{
+                        Image(recipe.imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity, maxHeight: 200)
+                            .edgesIgnoringSafeArea(.horizontal)
+                            .aspectRatio(4/3, contentMode: .fill)
+                            .frame(height: 200)
+                            .clipped()
+                        
+                        Color.black.opacity(0.5)
+                            .frame(maxWidth: .infinity, maxHeight: 200)
+                            .edgesIgnoringSafeArea(.horizontal)
+                            .aspectRatio(4/3, contentMode: .fill)
+                            .frame(height: 200)
+                        
+                        Text(recipe.title)
+                            .fontWeight(.black)
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical)
+                            .foregroundColor(.white)
+                            .font(.system(size: 40))
+                            .lineLimit(nil)
+                    }
                     
-                    Image(recipe.imageName)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
-                        .background(Color.yellow) // Imposta il colore di sfondo attorno all'immagine, se necessario
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
-                        .clipped()
-                        .shadow(radius: 10)
-                    
-                    Text("Ingredients:")
-                        .font(.title2)
+                    HStack{
+                        HStack{
+                            Text("Difficoltà")
+                                .fontWeight(.black)
+                                .font(.system(size: 30))
+                            Image("chef")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.yellow)
+                        }
+                    }
+                    Text("Ingredients")
+                        .font(.system(size: 35))
                         .fontWeight(.bold)
                         .foregroundColor(Color.yellow)
                         .padding(.vertical, 5)
                         .padding(.horizontal,15)
                     Divider()
                     
-                    VStack(alignment: .leading, spacing: 5) {
-                        ForEach(recipe.ingredients, id: \.0) { ingredient in
-                            Text("\(ingredient.0) \(ingredient.1)")
-                        }
+                    HStack{
+                        Spacer()
+                        
+                        ZStack{
+                            VStack(alignment: .leading, spacing: 5) {
+                                ForEach(recipe.ingredients, id: \.0) { ingredient in
+                                    HStack {
+                                        Circle()
+                                            .frame(width: 15, height: 15)
+                                            .foregroundColor(Color.white)
+                                            .shadow(radius: 1)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.black, lineWidth: 0.3)
+                                            )
+                                        Text("\(ingredient.0)")
+                                            .fontWeight(.semibold)
+                                            .font(.system(size: 22))
+                                        Spacer()
+                                        Text("\(ingredient.1)")
+                                            .fontWeight(.black)
+                                            .font(.system(size: 18))
+                                    }
+                                    Divider()
+                                }
+                            }
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .padding(15)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.clear)
+                            .overlay(
+                                Rectangle()
+                                    .stroke(Color.black, lineWidth: 0.3)
+                            )
+                        }.background(Color(red: 249/255, green: 246/255, blue: 227/255))
+                        Spacer()
                     }
-                    .font(.title3)
-                    .fontWeight(.medium)
-                    .padding() // Aggiunge spazio intorno agli ingredienti all'interno del riquadro
-                    .frame(maxWidth: .infinity)
-                    .background(Color.clear) // Imposta il colore di sfondo del riquadro
-                    .clipShape(RoundedRectangle(cornerRadius: 10)) // Applica angoli arrotondati al riquadro
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(Color.yellow, lineWidth: 2) // Crea un bordo intorno al riquadro
-                    )
                     
                     Text("Instructions:")
                         .font(.title2)
@@ -533,10 +559,21 @@ struct RecipeDetailView: View {
                         .padding(.vertical, 5)
                         .padding(.horizontal,15)
                 }
-                .padding()
             }
+            Button(action: {
+                watchConnector.sendMessage(key: "testo", value: "Cambiami")
+            }) {
+                Text("Watch and Cook!")
+                    .foregroundColor(.white)
+                    .font(.system(size: 25))
+                    .fontWeight(.black)
+                    .padding()
+                    .background(Color.yellow)
+                    .cornerRadius(30)
+                    .shadow(radius: 3)
+            }
+            Spacer().frame(height: 25)
         }
-//                      .navigationBarTitle(Text(recipe.title), displayMode: .inline)
     }
 }
 
