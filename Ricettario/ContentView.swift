@@ -11,7 +11,7 @@ struct ContentView: View {
             TabView {
                 //  View per schermata principale
                 //  (stato per gestire il colore del cuore, array ricette salvate, elenco ricette per la colazione)
-                HomeView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, randomRecipes: $randomRecipes, antipastiRecipe: antipastiRecipes)
+                HomeView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, randomRecipes: $randomRecipes, antipastiRecipes: antipastiRecipes)
                     .tabItem {
                         Image(systemName: "fork.knife")
                     }
@@ -43,7 +43,7 @@ struct HomeView: View {
     @Binding var savedRecipes: [Recipe] // Array contenente le ricette salvate salvate
     @Binding var randomRecipes: [Recipe] // Array contenente le ricette casuali
     
-    let antipastiRecipe : [Recipe]  // Elenco ricette per la colazione
+    let antipastiRecipes : [Recipe]  // Elenco ricette per la colazione
     
     var body: some View {
         NavigationView {    // Consentire la navigazione tra le view
@@ -177,14 +177,15 @@ struct HomeView: View {
                         ForEach(randomRecipes) { recipe in
                             NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
                                 RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
-                                    if self.isRecipeSaved(recipe) { // Se la ricetta è già salvata
-                                        // Rimuoviamo ricetta dall'elenco delle ricette salvate
-                                        self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                    if self.isRecipeSaved(recipe) {
+                                        self.savedRecipes.removeAll(where: { $0.title == recipe.title }) // Remove the recipe from saved recipes if it's already saved
                                     } else {
-                                        self.savedRecipes.append(recipe)    // Aggiungiamo ricetta all'elenco delle ricette salvate
+                                        self.savedRecipes.append(recipe) // Add the recipe to saved recipes
                                     }
                                 })
-                            }                        }
+                            }
+                        }
+
                         .buttonStyle(PlainButtonStyle())
                     }
                 }
@@ -451,6 +452,41 @@ struct RecipeCard: View {
     }
 }
 
+struct RecipePropertyView: View {
+    var imageName: String
+    var value: String
+    var label: String
+
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 35, height: 35)
+                    .foregroundColor(.white)
+                Text(value)
+                    .fontWeight(.black)
+                    .font(.system(size: 25))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            Text(label)
+                .fontWeight(.black)
+                .padding(.bottom, 5)
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(10)
+        .background(Color.yellow)
+        .cornerRadius(10)
+
+    }
+}
+
+
+
 // Struttura dettagli ricetta con ingredinenti
 struct RecipeDetailView: View {
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
@@ -487,18 +523,21 @@ struct RecipeDetailView: View {
                             .lineLimit(nil)
                     }
                     
-                    HStack{
-                        HStack{
-                            Text("Difficoltà")
-                                .fontWeight(.black)
-                                .font(.system(size: 30))
-                            Image("chef")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 25, height: 25)
-                                .foregroundColor(.yellow)
+                    VStack{
+                        HStack {
+                            VStack(spacing: 10) {
+                                HStack(spacing: 10) {
+                                    RecipePropertyView(imageName: "frying.pan.fill", value: "\(recipe.difficulty)", label: "Difficulty")
+                                    RecipePropertyView(imageName: "person.fill", value: "\(recipe.servingSize)", label: "Serving")
+                                }
+                                HStack(spacing: 10) {
+                                    RecipePropertyView(imageName: "timer", value: "\(recipe.time)m", label: "Time")
+                                    RecipePropertyView(imageName: "dollarsign.circle.fill", value: "\(recipe.cost)", label: "Cost")
+                                }
+                            }
                         }
-                    }
+                    }.padding()
+
                     Text("Ingredients")
                         .font(.system(size: 35))
                         .fontWeight(.bold)
@@ -512,7 +551,7 @@ struct RecipeDetailView: View {
                         
                         ZStack{
                             VStack(alignment: .leading, spacing: 5) {
-                                ForEach(recipe.ingredients, id: \.0) { ingredient in
+                                ForEach(recipe.ingredients, id: \.name) { ingredient in
                                     HStack {
                                         Circle()
                                             .frame(width: 15, height: 15)
@@ -522,11 +561,11 @@ struct RecipeDetailView: View {
                                                 Circle()
                                                     .stroke(Color.black, lineWidth: 0.3)
                                             )
-                                        Text("\(ingredient.0)")
+                                        Text("\(ingredient.name)")
                                             .fontWeight(.semibold)
                                             .font(.system(size: 22))
                                         Spacer()
-                                        Text("\(ingredient.1)")
+                                        Text("\(ingredient.quantity)")
                                             .fontWeight(.black)
                                             .font(.system(size: 18))
                                     }
@@ -546,18 +585,30 @@ struct RecipeDetailView: View {
                         Spacer()
                     }
                     
-                    Text("Instructions:")
-                        .font(.title2)
-                        .fontWeight(.medium)
+                    Text("Instructions")
+                        .font(.system(size: 35))
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.yellow)
                         .padding(.vertical, 5)
                         .padding(.horizontal,15)
-                    
-                    Text(recipe.instructions)
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .padding(.bottom, 20)
-                        .padding(.vertical, 5)
-                        .padding(.horizontal,15)
+
+                    ForEach(recipe.instructions.indices, id: \.self) { index in
+                        let stepNumber = index + 1
+                        let instruction = recipe.instructions[index]
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Step \(stepNumber)")
+                                .fontWeight(.bold)
+                                .foregroundColor(.yellow)
+                                .padding(.horizontal, 15)
+                            Text(instruction.text)
+                                .font(.title3)
+                                .fontWeight(.medium)
+                                .padding(.horizontal, 15)
+                                .padding(.bottom, 5)
+                        }
+                    }
+
+
                 }
             }
             Button(action: {
@@ -577,16 +628,18 @@ struct RecipeDetailView: View {
     }
 }
 
+
+
 // Define Recipe structure
-struct Recipe: Identifiable {
-    let id = UUID()
-    let title: String
-    let ingredients:  [(String, String)]
-    let instructions: String
-    let imageName: String
-    let description: String
-    var isHeartRed: Bool // Aggiungiamo una variabile di stato per gestire il cuore
-}
+//struct Recipe: Identifiable {
+//    let id = UUID()
+//    let title: String
+//    let ingredients:  [(String, String)]
+//    let instructions: [(String, String)]
+//    let imageName: String
+//    let description: String
+//    var isHeartRed: Bool // Aggiungiamo una variabile di stato per gestire il cuore
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
