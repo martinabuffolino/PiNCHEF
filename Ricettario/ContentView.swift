@@ -2,11 +2,21 @@ import SwiftUI
 
 // Sezione ContentView
 struct ContentView: View {
+    
+    // Variabile per inviare i dati al Watch
+    @StateObject private var watchConnector: WatchConnector = WatchConnector()
+    
     @State private var isHeartRed = false   // Stato per gestire il colore del cuore
     @State private var savedRecipes = [Recipe]() // Array contenente le ricette salvate
     @State private var randomRecipes: [Recipe] = []
 
     var body: some View {
+        
+        // DA CAMBIARE: far coincidere col pulsante "Cucina"
+        Button("Test Conn") {
+            watchConnector.sendMessage(key: "testo", value: "cambiami")
+        }
+        
         NavigationView {
             TabView {
                 //  View per schermata principale

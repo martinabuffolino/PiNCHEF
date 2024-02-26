@@ -8,14 +8,54 @@
 
 /* Begin PBXBuildFile section */
 		4B8DCE1B2B8632A500EF09D5 /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */; };
+		5B5620B32B8C9EF300521E51 /* RicettarioWApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */; };
+		5B5620B52B8C9EF300521E51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620B42B8C9EF300521E51 /* ContentView.swift */; };
+		5B5620B72B8C9EF500521E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5620B62B8C9EF500521E51 /* Assets.xcassets */; };
+		5B5620BA2B8C9EF500521E51 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5620B92B8C9EF500521E51 /* Preview Assets.xcassets */; };
+		5B5620BD2B8C9EF500521E51 /* RicettarioW Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5B5620B02B8C9EF300521E51 /* RicettarioW Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5B5620C42B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620C32B8C9F5100521E51 /* ConnectivityProvider.swift */; };
+		5B5620C52B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620C32B8C9F5100521E51 /* ConnectivityProvider.swift */; };
+		5B5620C72B8C9F7C00521E51 /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620C62B8C9F7C00521E51 /* WatchConnector.swift */; };
+		5B5620C82B8C9F7C00521E51 /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620C62B8C9F7C00521E51 /* WatchConnector.swift */; };
 		5BA5DF192B83A46D004D19ED /* RicettarioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF182B83A46D004D19ED /* RicettarioApp.swift */; };
 		5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1A2B83A46D004D19ED /* ContentView.swift */; };
 		5BA5DF1D2B83A46F004D19ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */; };
 		5BA5DF212B83A46F004D19ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5B5620BB2B8C9EF500521E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5BA5DF0D2B83A46D004D19ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B5620AF2B8C9EF300521E51;
+			remoteInfo = "RicettarioW Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5B5620BE2B8C9EF500521E51 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				5B5620BD2B8C9EF500521E51 /* RicettarioW Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBook.swift; sourceTree = "<group>"; };
+		5B5620B02B8C9EF300521E51 /* RicettarioW Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RicettarioW Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RicettarioWApp.swift; sourceTree = "<group>"; };
+		5B5620B42B8C9EF300521E51 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5B5620B62B8C9EF500521E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B5620B92B8C9EF500521E51 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5B5620C32B8C9F5100521E51 /* ConnectivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityProvider.swift; sourceTree = "<group>"; };
+		5B5620C62B8C9F7C00521E51 /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
 		5BA5DF152B83A46D004D19ED /* Ricettario.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ricettario.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA5DF182B83A46D004D19ED /* RicettarioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RicettarioApp.swift; sourceTree = "<group>"; };
 		5BA5DF1A2B83A46D004D19ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -25,6 +65,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B5620AD2B8C9EF300521E51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BA5DF122B83A46D004D19ED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -35,10 +82,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B5620B12B8C9EF300521E51 /* RicettarioW Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */,
+				5B5620B42B8C9EF300521E51 /* ContentView.swift */,
+				5B5620B62B8C9EF500521E51 /* Assets.xcassets */,
+				5B5620B82B8C9EF500521E51 /* Preview Content */,
+			);
+			path = "RicettarioW Watch App";
+			sourceTree = "<group>";
+		};
+		5B5620B82B8C9EF500521E51 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5B5620B92B8C9EF500521E51 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5B5620C22B8C9F2200521E51 /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				5B5620C32B8C9F5100521E51 /* ConnectivityProvider.swift */,
+				5B5620C62B8C9F7C00521E51 /* WatchConnector.swift */,
+			);
+			path = Connection;
+			sourceTree = "<group>";
+		};
 		5BA5DF0C2B83A46D004D19ED = {
 			isa = PBXGroup;
 			children = (
+				5B5620C22B8C9F2200521E51 /* Connection */,
 				5BA5DF172B83A46D004D19ED /* Ricettario */,
+				5B5620B12B8C9EF300521E51 /* RicettarioW Watch App */,
 				5BA5DF162B83A46D004D19ED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA5DF152B83A46D004D19ED /* Ricettario.app */,
+				5B5620B02B8C9EF300521E51 /* RicettarioW Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,6 +153,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B5620AF2B8C9EF300521E51 /* RicettarioW Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B5620C12B8C9EF500521E51 /* Build configuration list for PBXNativeTarget "RicettarioW Watch App" */;
+			buildPhases = (
+				5B5620AC2B8C9EF300521E51 /* Sources */,
+				5B5620AD2B8C9EF300521E51 /* Frameworks */,
+				5B5620AE2B8C9EF300521E51 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RicettarioW Watch App";
+			productName = "RicettarioW Watch App";
+			productReference = 5B5620B02B8C9EF300521E51 /* RicettarioW Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5BA5DF142B83A46D004D19ED /* Ricettario */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BA5DF242B83A46F004D19ED /* Build configuration list for PBXNativeTarget "Ricettario" */;
@@ -82,10 +177,12 @@
 				5BA5DF112B83A46D004D19ED /* Sources */,
 				5BA5DF122B83A46D004D19ED /* Frameworks */,
 				5BA5DF132B83A46D004D19ED /* Resources */,
+				5B5620BE2B8C9EF500521E51 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5B5620BC2B8C9EF500521E51 /* PBXTargetDependency */,
 			);
 			name = Ricettario;
 			productName = Ricettario;
@@ -102,6 +199,9 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					5B5620AF2B8C9EF300521E51 = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					5BA5DF142B83A46D004D19ED = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -121,11 +221,21 @@
 			projectRoot = "";
 			targets = (
 				5BA5DF142B83A46D004D19ED /* Ricettario */,
+				5B5620AF2B8C9EF300521E51 /* RicettarioW Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B5620AE2B8C9EF300521E51 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5620BA2B8C9EF500521E51 /* Preview Assets.xcassets in Resources */,
+				5B5620B72B8C9EF500521E51 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BA5DF132B83A46D004D19ED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -138,19 +248,101 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B5620AC2B8C9EF300521E51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5620B52B8C9EF300521E51 /* ContentView.swift in Sources */,
+				5B5620C82B8C9F7C00521E51 /* WatchConnector.swift in Sources */,
+				5B5620B32B8C9EF300521E51 /* RicettarioWApp.swift in Sources */,
+				5B5620C52B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BA5DF112B83A46D004D19ED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4B8DCE1B2B8632A500EF09D5 /* RecipeBook.swift in Sources */,
+				5B5620C72B8C9F7C00521E51 /* WatchConnector.swift in Sources */,
 				5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */,
 				5BA5DF192B83A46D004D19ED /* RicettarioApp.swift in Sources */,
+				5B5620C42B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5B5620BC2B8C9EF500521E51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B5620AF2B8C9EF300521E51 /* RicettarioW Watch App */;
+			targetProxy = 5B5620BB2B8C9EF500521E51 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		5B5620BF2B8C9EF500521E51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = K77YAS4MZU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = carminedemicco.Ricettario;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = carminedemicco.Ricettario.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		5B5620C02B8C9EF500521E51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = K77YAS4MZU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = carminedemicco.Ricettario;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = carminedemicco.Ricettario.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Release;
+		};
 		5BA5DF222B83A46F004D19ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -268,13 +460,14 @@
 		5BA5DF252B83A46F004D19ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Ricettario/Ricettario.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = 4VWKAS8JJ8;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -293,7 +486,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = uniparthenope.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = carminedemicco.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -306,13 +499,14 @@
 		5BA5DF262B83A46F004D19ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Ricettario/Ricettario.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = 4VWKAS8JJ8;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -331,7 +525,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = uniparthenope.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = carminedemicco.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -344,6 +538,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B5620C12B8C9EF500521E51 /* Build configuration list for PBXNativeTarget "RicettarioW Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5620BF2B8C9EF500521E51 /* Debug */,
+				5B5620C02B8C9EF500521E51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5BA5DF102B83A46D004D19ED /* Build configuration list for PBXProject "Ricettario" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

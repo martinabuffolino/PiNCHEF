@@ -1,21 +1,13 @@
-//
-//  ContentView.swift
-//  RicettarioW Watch App
-//
-//  Created by Carmine De Micco on 26/02/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var watchConnector: WatchConnector = WatchConnector()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Hello, \(watchConnector.testo)")
         }
-        .padding()
     }
 }
 
