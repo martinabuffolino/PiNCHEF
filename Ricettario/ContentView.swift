@@ -494,9 +494,9 @@ struct RecipeDetailView: View {
                         .padding(.horizontal,15)
                     Divider()
                     
-                    VStack(alignment: .leading) {
-                        ForEach(recipe.ingredients, id: \.self) { ingredient in
-                            Text("・\(ingredient)")
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(recipe.ingredients, id: \.0) { ingredient in
+                            Text("\(ingredient.0) \(ingredient.1)")
                         }
                     }
                     .font(.title3)
@@ -534,7 +534,7 @@ struct RecipeDetailView: View {
 struct Recipe: Identifiable {
     let id = UUID()
     let title: String
-    let ingredients: [String]
+    let ingredients:  [(String, String)]
     let instructions: String
     let imageName: String
     let description: String
