@@ -493,9 +493,6 @@ struct RecipeDetailView: View {
     
     var recipe: Recipe
     
-    // Dichiarazione della variabile expandedSteps al livello della vista
-//    @State private var expandedSteps: Set<Int> = []
-    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ZStack{
