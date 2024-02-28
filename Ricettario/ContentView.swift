@@ -306,7 +306,7 @@ struct SecondiView: View {
     }
 }
 
-// Sezione ricerca: CENA
+// Sezione ricerca: DOLCI
 struct DolciView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
@@ -493,6 +493,9 @@ struct RecipeDetailView: View {
     
     var recipe: Recipe
     
+    // Dichiarazione della variabile expandedSteps al livello della vista
+//    @State private var expandedSteps: Set<Int> = []
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ZStack{
@@ -585,61 +588,103 @@ struct RecipeDetailView: View {
                         Spacer()
                     }
                     
-                    Text("Instructions")
-                        .font(.system(size: 35))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.yellow)
-                        .padding(.vertical, 5)
-                        .padding(.horizontal,15)
-
-                    ForEach(recipe.instructions.indices, id: \.self) { index in
-                        let stepNumber = index + 1
-                        let instruction = recipe.instructions[index]
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Step \(stepNumber)")
-                                .fontWeight(.bold)
-                                .foregroundColor(.yellow)
-                                .padding(.horizontal, 15)
-                            Text(instruction.text)
-                                .font(.title3)
-                                .fontWeight(.medium)
-                                .padding(.horizontal, 15)
-                                .padding(.bottom, 5)
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    HStack(spacing: 20){
+                        Spacer()
+                        Button(action: {
+                            
+                        }) {
+                            NavigationLink(destination: instructionsView(recipe: recipe)) {
+                                Text("Instructions")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 17))
+                                    .fontWeight(.black)
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(30)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .stroke(Color.yellow, lineWidth: 4)
+                                    )
+                                    .shadow(radius: 3)
+                            }
                         }
+                        Button(action: {
+                            watchConnector.sendMessage(key: "testo", value: "Cambiami")
+                        }) {
+                            Text("Watch and Cook!")
+                                .foregroundColor(.white)
+                                .font(.system(size: 17))
+                                .fontWeight(.black)
+                                .padding()
+                                .background(Color.yellow)
+                                .cornerRadius(30)
+                                .shadow(radius: 3)
+                        }
+                        Spacer()
                     }
+                    Spacer()
+                                           
+//                    VECCHIO
+//                    Text("Instructions")
+//                        .font(.system(size: 35))
+//                        .fontWeight(.bold)
+//                        .foregroundColor(Color.yellow)
+//                        .padding(.vertical, 5)
+//                        .padding(.horizontal,15)
 
-
+//                    ForEach(recipe.instructions.indices, id: \.self) { index in
+//                        let stepNumber = index + 1
+//                        let instruction = recipe.instructions[index]
+//                        VStack(alignment: .leading, spacing: 5) {
+//                            Text("Step \(stepNumber)")
+//                                .fontWeight(.bold)
+//                                .foregroundColor(.yellow)
+//                                .padding(.horizontal, 15)
+//                            Text(instruction.text)
+//                                .font(.title3)
+//                                .fontWeight(.medium)
+//                                .padding(.horizontal, 15)
+//                                .padding(.bottom, 5)
+//                        }
+//                    }
                 }
-            }
-            Button(action: {
-                watchConnector.sendMessage(key: "testo", value: "Cambiami")
-            }) {
-                Text("Watch and Cook!")
-                    .foregroundColor(.white)
-                    .font(.system(size: 25))
-                    .fontWeight(.black)
-                    .padding()
-                    .background(Color.yellow)
-                    .cornerRadius(30)
-                    .shadow(radius: 3)
             }
             Spacer().frame(height: 25)
         }
     }
 }
 
-
-
-// Define Recipe structure
-//struct Recipe: Identifiable {
-//    let id = UUID()
-//    let title: String
-//    let ingredients:  [(String, String)]
-//    let instructions: [(String, String)]
-//    let imageName: String
-//    let description: String
-//    var isHeartRed: Bool // Aggiungiamo una variabile di stato per gestire il cuore
-//}
+struct instructionsView: View {
+    
+    var recipe: Recipe
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                ForEach(recipe.instructions.indices, id: \.self) { index in
+                    let stepNumber = index + 1
+                    let instruction = recipe.instructions[index]
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Step \(stepNumber)")
+                            .fontWeight(.bold)
+                            .foregroundColor(.yellow)
+                            .padding(.horizontal, 15)
+                        Text(instruction.text)
+                            .font(.title3)
+                            .fontWeight(.medium)
+                            .padding(.horizontal, 15)
+                            .padding(.bottom, 5)
+                    }
+                }
+                .padding()
+            }
+            .navigationTitle("Dolci")
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
