@@ -23,7 +23,7 @@ struct ContentView: View {
                 ZStack {
                     
                     if currentInstruction < 0{
-                        StartWatch()
+                        StartW()
                     }
                     else{
                         VStack{

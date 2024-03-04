@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StartWatch: View {
+struct StartW: View {
     var body: some View {
         VStack{
             Spacer()
@@ -31,5 +31,5 @@ struct StartWatch: View {
 }
 
 #Preview {
-    StartWatch()
+    StartW()
 }
