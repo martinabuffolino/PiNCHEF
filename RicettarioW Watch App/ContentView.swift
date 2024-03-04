@@ -20,61 +20,59 @@ struct ContentView: View {
                     
             }
             else{
-                ZStack {
-                    
-                    if currentInstruction < 0{
-                        StartW()
-                    }
-                    else{
-                        VStack{
-                            Text("Timer, \(currentRecipe.title)")
-                                .padding(.top, 0)
-                            
-                            Divider()
-                            
-                            VStack(alignment: .leading) {
-                                Text("🔥")
-                                    .font(.system(size: 50))
-                                    
-                                Text("10 min")
-                                    .bold()
-                                    .font(.system(size: 20))
-                                    
-                                if currentInstruction < currentRecipe.instructions.count{
-                                    Text(currentRecipe.instructions[currentInstruction].text)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                        .opacity(0.5)
-                                        .frame(minWidth: .infinity, minHeight: 80, maxHeight: 80)
-                                        .lineLimit(4) // Numero massimo di linee che vuoi mostrare
-                                        .truncationMode(.tail)
-                                }
-                                else{
-                                    Text("Fine Ricetta")
-                                }
-                                
-                            }
-                            .padding()
-                        }
-                        
-                    }
-                    
-                    Text("")
-                        .focusable(true)
-                        .digitalCrownRotation($scrollAmount, from: -1.0, through: 1.0, by: 0.1, sensitivity: .low, isContinuous: false)
-                        .onChange(of: scrollAmount) {
-                            if Int(scrollAmount) == 1{
-                                print("avanti")
-                                currentInstruction += 1
-                                scrollAmount = 0
-                            }
-                            else if Int(scrollAmount) == -1{
-                                print("indietro")
-                                currentInstruction -= 1
-                                scrollAmount = 0
-                            }
-
-                        }
+                
+                if currentInstruction < 0{
+                    StartW()
                 }
+                else{
+                    VStack{
+                        Text("Timer, \(currentRecipe.title)")
+                            .padding(.top, 0)
+                        
+                        Divider()
+                        
+                        VStack(alignment: .leading) {
+                            Text("🔥")
+                                .font(.system(size: 50))
+                                
+                            Text("10 min")
+                                .bold()
+                                .font(.system(size: 20))
+                                
+                            if currentInstruction < currentRecipe.instructions.count{
+                                Text(currentRecipe.instructions[currentInstruction].text)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .opacity(0.5)
+                                    .lineLimit(4) // Numero massimo di linee che vuoi mostrare
+                                    .truncationMode(.tail)
+                            }
+                            else{
+                                Text("Fine Ricetta")
+                            }
+                            
+                        }
+                        .padding()
+                    }
+                    
+                }
+                
+                Text("")
+                    .focusable(true)
+                    .digitalCrownRotation($scrollAmount, from: -1.0, through: 1.0, by: 0.1, sensitivity: .low, isContinuous: false)
+                    .onChange(of: scrollAmount) {
+                        if Int(scrollAmount) == 1{
+                            print("avanti")
+                            currentInstruction += 1
+                            scrollAmount = 0
+                        }
+                        else if Int(scrollAmount) == -1{
+                            print("indietro")
+                            currentInstruction -= 1
+                            scrollAmount = 0
+                        }
+
+                    }
+                
                 
             }
             
