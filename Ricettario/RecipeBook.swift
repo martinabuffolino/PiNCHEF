@@ -5,7 +5,7 @@ struct Ingredient {
     let quantity: String
 }
 
-struct Step {
+struct Step: Codable {
     let type: String
     let text: String
 }

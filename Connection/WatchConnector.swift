@@ -18,7 +18,7 @@ class WatchConnector: ObservableObject{
     
     private var connectivityProvider: ConnectivityProvider
     
-    @Published var testo: String = ""
+    @Published var recipeTitle: String = ""
     
     var valueModel: PassthroughSubject<Value, Never> = PassthroughSubject<Value, Never> ()
     var requests: AnyCancellable?
@@ -32,7 +32,7 @@ class WatchConnector: ObservableObject{
             value in
             switch value.path{
             case "testo":
-                self.testo = value.value
+                self.recipeTitle = value.value
             default:
                 print("Error")
                 

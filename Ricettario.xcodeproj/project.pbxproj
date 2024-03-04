@@ -21,6 +21,8 @@
 		5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1A2B83A46D004D19ED /* ContentView.swift */; };
 		5BA5DF1D2B83A46F004D19ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */; };
 		5BA5DF212B83A46F004D19ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */; };
+		5BD56E982B95BF9E00AA63CA /* StartW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD56E972B95BF9E00AA63CA /* StartW.swift */; };
+		5BD56E9C2B95C05300AA63CA /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,7 @@
 		5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BA5DF1E2B83A46F004D19ED /* Ricettario.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ricettario.entitlements; sourceTree = "<group>"; };
 		5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5BD56E972B95BF9E00AA63CA /* StartW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartW.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,7 @@
 			children = (
 				5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */,
 				5B5620B42B8C9EF300521E51 /* ContentView.swift */,
+				5BD56E972B95BF9E00AA63CA /* StartW.swift */,
 				5B5620B62B8C9EF500521E51 /* Assets.xcassets */,
 				5B5620B82B8C9EF500521E51 /* Preview Content */,
 			);
@@ -252,9 +256,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BD56E9C2B95C05300AA63CA /* RecipeBook.swift in Sources */,
 				5B5620B52B8C9EF300521E51 /* ContentView.swift in Sources */,
 				5B5620C82B8C9F7C00521E51 /* WatchConnector.swift in Sources */,
 				5B5620B32B8C9EF300521E51 /* RicettarioWApp.swift in Sources */,
+				5BD56E982B95BF9E00AA63CA /* StartW.swift in Sources */,
 				5B5620C52B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

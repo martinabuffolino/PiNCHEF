@@ -461,7 +461,7 @@ struct RecipeDetailView: View {
                             }
                         }
                         Button(action: {
-                            watchConnector.sendMessage(key: "testo", value: "Cambiami")
+                            watchConnector.sendMessage(key: "testo", value: recipe.title)
                         }) {
                             Text("Watch and Cook!")
                                 .foregroundColor(.white)
