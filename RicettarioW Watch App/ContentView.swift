@@ -4,7 +4,7 @@ struct ContentView: View {
     
     @StateObject private var watchConnector: WatchConnector = WatchConnector()
     
-    @State var currentRecipe: Recipe = Recipe(title: "", ingredients: [], instructions: [], imageName: "", description: "", isHeartRed: false, difficulty: 0, time: 0, cost: 0, servingSize: 0)
+    @State var currentRecipe: Recipe = Recipe(title: "", ingredients: [], instructions: [], imageName: "", description: "", isHeartRed: false, difficulty: .easy, time: 0, cost: .low, servingSize: 0)
     
     @State var currentInstruction = -1
     

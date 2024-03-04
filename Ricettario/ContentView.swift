@@ -5,8 +5,6 @@ struct ContentView: View {
     @State private var savedRecipes = [Recipe]()
     @State private var randomRecipes: [Recipe] = []
     
-//    @State private var searchText: String = ""
-    
     var body: some View {
         NavigationView {
             TabView {
@@ -44,17 +42,16 @@ struct HomeView: View {
     let secondiRecipes: [Recipe]
     let dolciRecipes: [Recipe]
     
-//    @State private var searchText: String = ""
-    
     var body: some View {
         NavigationView {
             VStack {
-                Text("What do you want to eat today?")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.title)
-                    .fontWeight(.light)
-                    .padding(10)
-                
+                HStack{
+                    Text("Recipe Book")
+                        .font(.system(size: 40))
+                        .fontWeight(.black)
+                        .padding()
+                    Spacer()
+                }
                 SearchBar()
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -88,7 +85,7 @@ struct HomeView: View {
                 
                 Text("RECIPES OF THE DAY")
                     .font(.title)
-                    .fontWeight(.light)
+                    .fontWeight(.semibold)
                     .padding(.top, 10)
                 
                 ScrollView(.vertical, showsIndicators: false) {
@@ -109,7 +106,11 @@ struct HomeView: View {
                     }
                 }
             }
-            .background(Color.white)
+            .background(
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+            )
         }
     }
     
@@ -318,25 +319,21 @@ struct RecipePropertyView: View {
                 Image(systemName: imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 35, height: 35)
-                    .foregroundColor(.white)
+                    .frame(width: 37, height: 37)
                 Text(value)
                     .fontWeight(.black)
-                    .font(.system(size: 25))
-                    .foregroundColor(.white)
+                    .font(.system(size: 23))
                 Spacer()
             }
             Text(label)
-                .fontWeight(.black)
+                .fontWeight(.heavy)
                 .padding(.bottom, 5)
                 .font(.system(size: 20))
-                .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(10)
         .background(Color.yellow)
         .cornerRadius(10)
-        
     }
 }
 
@@ -373,18 +370,36 @@ struct RecipeDetailView: View {
                             .foregroundColor(.white)
                             .font(.system(size: 40))
                             .lineLimit(nil)
+                        
+                        VStack{
+                            HStack{
+                                Spacer()
+                                Button(action: {
+                                    
+                                }) {
+                                    Image(systemName:"heart")
+                                        .foregroundColor(.white)
+                                        .padding(12)
+                                        .background(Color.black.opacity(0.6))
+                                        .clipShape(Circle())
+                                        .padding(15)
+                                        .font(.system(size: 24))
+                                }
+                            }
+                            Spacer()
+                        }
                     }
                     
                     VStack{
                         HStack {
                             VStack(spacing: 10) {
                                 HStack(spacing: 10) {
-                                    RecipePropertyView(imageName: "frying.pan.fill", value: "\(recipe.difficulty)", label: "Difficulty")
-                                    RecipePropertyView(imageName: "person.fill", value: "\(recipe.servingSize)", label: "Serving")
+                                    RecipePropertyView(imageName: "frying.pan", value: "\(recipe.difficulty)", label: "Difficulty")
+                                    RecipePropertyView(imageName: "person", value: "\(recipe.servingSize)", label: "Serving")
                                 }
                                 HStack(spacing: 10) {
                                     RecipePropertyView(imageName: "timer", value: "\(recipe.time)m", label: "Time")
-                                    RecipePropertyView(imageName: "dollarsign.circle.fill", value: "\(recipe.cost)", label: "Cost")
+                                    RecipePropertyView(imageName: "dollarsign.circle", value: "\(recipe.cost)", label: "Cost")
                                 }
                             }
                         }
@@ -452,9 +467,9 @@ struct RecipeDetailView: View {
                                     .fontWeight(.black)
                                     .padding()
                                     .background(Color.white)
-                                    .cornerRadius(30)
+                                    .cornerRadius(3)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
+                                        RoundedRectangle(cornerRadius: 3)
                                             .stroke(Color.yellow, lineWidth: 4)
                                     )
                                     .shadow(radius: 3)
@@ -463,13 +478,13 @@ struct RecipeDetailView: View {
                         Button(action: {
                             watchConnector.sendMessage(key: "testo", value: recipe.title)
                         }) {
-                            Text("Watch and Cook!")
+                            Text("Cook")
                                 .foregroundColor(.white)
                                 .font(.system(size: 17))
                                 .fontWeight(.black)
                                 .padding()
+                                .cornerRadius(3)
                                 .background(Color.yellow)
-                                .cornerRadius(30)
                                 .shadow(radius: 3)
                         }
                         Spacer()

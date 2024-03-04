@@ -10,6 +10,18 @@ struct Step: Codable {
     let text: String
 }
 
+enum Difficulty: String {
+    case easy = "Easy"
+    case medium = "Medium"
+    case hard = "Hard"
+}
+
+enum Cost: String {
+    case low = "Low"
+    case medium = "Medium"
+    case high = "High"
+}
+
 struct Recipe: Identifiable {
     let id: String
     let title: String
@@ -19,12 +31,12 @@ struct Recipe: Identifiable {
     let description: String
     let isHeartRed: Bool
     
-    let difficulty: Int
+    let difficulty: Difficulty
     let time: Int
-    let cost: Int
+    let cost: Cost
     let servingSize: Int
     
-    init(title: String, ingredients: [Ingredient], instructions: [Step], imageName: String, description: String, isHeartRed: Bool, difficulty: Int, time: Int, cost: Int, servingSize: Int) {
+    init(title: String, ingredients: [Ingredient], instructions: [Step], imageName: String, description: String, isHeartRed: Bool, difficulty: Difficulty, time: Int, cost: Cost, servingSize: Int) {
             self.id = title
             self.title = title
             self.ingredients = ingredients
@@ -67,9 +79,9 @@ var antipastiRecipes: [Recipe] = [
            imageName: "fries",
            description: "Homemade French fries that are crispy on the outside and fluffy on the inside, perfect as a side dish or snack.",
            isHeartRed: false,
-           difficulty: 2,
+           difficulty: .easy,
            time: 60,
-           cost: 1,
+           cost: .low,
            servingSize: 4),
     
     Recipe(title: "Tater Tots",
@@ -93,9 +105,9 @@ var antipastiRecipes: [Recipe] = [
            imageName: "tater_tots",
            description: "Homemade tater tots that are crispy on the outside and soft on the inside, perfect as a snack or side dish.",
            isHeartRed: false,
-           difficulty: 2,
+           difficulty: .medium,
            time: 30,
-           cost: 1,
+           cost: .low,
            servingSize: 4)
 
 ]
@@ -123,9 +135,9 @@ var primiRecipes: [Recipe] = [
            imageName: "sauce_pasta",
            description: "A quick and easy tomato sauce made with canned tomatoes, onion, garlic, and herbs.",
            isHeartRed: false,
-           difficulty: 1,
+           difficulty: .easy,
            time: 30,
-           cost: 1,
+           cost: .low,
            servingSize: 4),
     
     Recipe(title: "Spaghetti with Tuna",
@@ -154,9 +166,9 @@ var primiRecipes: [Recipe] = [
            imageName: "tuna_spaghetti",
            description: "A quick and flavorful pasta dish made with spaghetti, canned tuna, garlic, cherry tomatoes, and fresh parsley.",
            isHeartRed: false,
-           difficulty: 1,
+           difficulty: .easy,
            time: 20,
-           cost: 2,
+           cost: .medium,
            servingSize: 2)
 ]
 
@@ -187,9 +199,9 @@ var secondiRecipes: [Recipe] = [
            imageName: "braised_steak",
            description: "Tender and flavorful beef chuck steak braised in a savory onion gravy, perfect for a comforting meal.",
            isHeartRed: false,
-           difficulty: 2,
+           difficulty: .hard,
            time: 150,
-           cost: 3,
+           cost: .high,
            servingSize: 4),
     
     Recipe(title: "Vegan Cotoletta",
@@ -217,9 +229,9 @@ var secondiRecipes: [Recipe] = [
            imageName: "cotoletta",
            description: "A vegan twist on the classic Italian cotoletta, made with seitan cutlets breaded and fried until crispy and golden brown.",
            isHeartRed: false,
-           difficulty: 2,
+           difficulty: .medium,
            time: 30,
-           cost: 2,
+           cost: .high,
            servingSize: 4)
 ]
 
@@ -247,9 +259,9 @@ var dolciRecipes: [Recipe] = [
            imageName: "pancake",
            description: "Classic fluffy pancakes that are perfect for breakfast or brunch.",
            isHeartRed: false,
-           difficulty: 1,
+           difficulty: .medium,
            time: 10,
-           cost: 1,
+           cost: .low,
            servingSize: 4),
     
     Recipe(title: "Blueberry Muffins",
@@ -276,8 +288,8 @@ var dolciRecipes: [Recipe] = [
            imageName: "muffin",
            description: "Delicious and moist blueberry muffins bursting with fresh blueberries, perfect for breakfast or a snack.",
            isHeartRed: false,
-           difficulty: 2,
+           difficulty: .medium,
            time: 25,
-           cost: 2,
+           cost: .medium,
            servingSize: 12)
 ]
