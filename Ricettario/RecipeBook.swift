@@ -39,8 +39,12 @@ struct Recipe: Identifiable {
         }
 }
 
+var allRecipes: [Recipe] = antipastiRecipes + primiRecipes + secondiRecipes + dolciRecipes
+
+var savedRecipes: [Recipe] = []
+
 var antipastiRecipes: [Recipe] = [
-    Recipe(title: "Simple French Fries",
+    Recipe(title: "French Fries",
            ingredients: [
                 Ingredient(name: "Potatoes", quantity: "2 large"),
                 Ingredient(name: "Vegetable oil", quantity: "2 cups"),
@@ -60,7 +64,7 @@ var antipastiRecipes: [Recipe] = [
                 Step(type: "Seasoning", text: "Transfer the fries to a large bowl and immediately season with salt, black pepper, and paprika (if using). Toss to coat evenly."),
                 Step(type: "Serving", text: "Serve hot, optionally with ketchup, mayonnaise, or your favorite dipping sauce."),
            ],
-           imageName: "patatine",
+           imageName: "fries",
            description: "Homemade French fries that are crispy on the outside and fluffy on the inside, perfect as a side dish or snack.",
            isHeartRed: false,
            difficulty: 2,
@@ -68,7 +72,7 @@ var antipastiRecipes: [Recipe] = [
            cost: 1,
            servingSize: 4),
     
-    Recipe(title: "Simple Tater Tots",
+    Recipe(title: "Tater Tots",
            ingredients: [
                 Ingredient(name: "Potatoes", quantity: "2 large"),
                 Ingredient(name: "Onion, finely chopped", quantity: "1/2"),
@@ -86,7 +90,7 @@ var antipastiRecipes: [Recipe] = [
                 Step(type: "Draining", text: "Remove the fried tater tots from the oil and drain them on paper towels."),
                 Step(type: "Seasoning", text: "Sprinkle with additional salt, if desired, and serve hot."),
            ],
-           imageName: "tater",
+           imageName: "tater_tots",
            description: "Homemade tater tots that are crispy on the outside and soft on the inside, perfect as a snack or side dish.",
            isHeartRed: false,
            difficulty: 2,
@@ -97,7 +101,7 @@ var antipastiRecipes: [Recipe] = [
 ]
 
 var primiRecipes: [Recipe] = [
-    Recipe(title: "Simple Tomato Sauce",
+    Recipe(title: "Tomato Sauce",
            ingredients: [
                 Ingredient(name: "Canned whole tomatoes", quantity: "28 oz"),
                 Ingredient(name: "Olive oil", quantity: "2 tbsp"),
@@ -116,7 +120,7 @@ var primiRecipes: [Recipe] = [
                 Step(type: "Finishing", text: "Taste and adjust seasoning if needed."),
                 Step(type: "Serving", text: "Serve over cooked pasta or use as a base for pizza."),
            ],
-           imageName: "pastasugo",
+           imageName: "sauce_pasta",
            description: "A quick and easy tomato sauce made with canned tomatoes, onion, garlic, and herbs.",
            isHeartRed: false,
            difficulty: 1,
@@ -147,7 +151,7 @@ var primiRecipes: [Recipe] = [
                 Step(type: "Finishing", text: "Drizzle lemon juice over the pasta and sprinkle with chopped parsley. Toss once more before serving."),
                 Step(type: "Serving", text: "Serve hot, optionally garnished with additional parsley and lemon wedges."),
            ],
-           imageName: "pastatonno",
+           imageName: "tuna_spaghetti",
            description: "A quick and flavorful pasta dish made with spaghetti, canned tuna, garlic, cherry tomatoes, and fresh parsley.",
            isHeartRed: false,
            difficulty: 1,
@@ -180,7 +184,7 @@ var secondiRecipes: [Recipe] = [
                 Step(type: "Finishing", text: "Once the steak is tender, remove it from the skillet and let it rest for a few minutes before slicing."),
                 Step(type: "Serving", text: "Serve the sliced braised steak with the onion gravy spooned over the top."),
            ],
-           imageName: "braised",
+           imageName: "braised_steak",
            description: "Tender and flavorful beef chuck steak braised in a savory onion gravy, perfect for a comforting meal.",
            isHeartRed: false,
            difficulty: 2,
@@ -277,8 +281,3 @@ var dolciRecipes: [Recipe] = [
            cost: 2,
            servingSize: 12)
 ]
-
-// Unisci tutte le ricette in un'unica array
-var allRecipes: [Recipe] = antipastiRecipes + primiRecipes + secondiRecipes + dolciRecipes
-
-var savedRecipes: [Recipe] = []
