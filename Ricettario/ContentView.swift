@@ -53,7 +53,7 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0){
                 HStack {
                     Text("Recipe Book").font(.system(size: 40)).fontWeight(.black).padding()
                     Spacer()
@@ -67,6 +67,7 @@ struct HomeView: View {
                         CategoryButton(title: "Desserts", imageName: "desserts", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: dessertsRecipes, category: .desserts))
                     }.padding()
                 }
+                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
                         Text(searchText.isEmpty ? "RECIPES OF THE DAY" : "RESULTS").font(.title).fontWeight(.semibold).padding(.top, 10)
@@ -237,13 +238,15 @@ struct RecipeCard: View {
     
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: isHeartRed, toggleHeart: toggleHeart)) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 ZStack(alignment: .topTrailing) {
                     Image(recipe.imageName)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 150)
-                        .cornerRadius(8)
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .edgesIgnoringSafeArea(.horizontal)
+                        .aspectRatio(4/3, contentMode: .fill)
+                        .frame(height: 180)
                         .clipped()
                     
                     Button(action: toggleHeart) {
@@ -258,20 +261,21 @@ struct RecipeCard: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(recipe.title)
-                        .font(.headline)
-                        .foregroundColor(.primary)
+                        .font(.system(size: 25))
+                        .fontWeight(.heavy)
                         .lineLimit(1)
                     
                     Text(recipe.description)
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
-                        .lineLimit(2)
+                        .foregroundColor(.gray)
+                        .fontWeight(.semibold)
+                        .font(.system(size: 15))
+                        .lineLimit(3)
                 }
+                .padding(5)
             }
-            .padding()
             .background(Color.white)
             .cornerRadius(10)
-            .shadow(radius: 3)
+            .shadow(radius: 5)
             .padding(.horizontal)
         }
         .buttonStyle(PlainButtonStyle())
