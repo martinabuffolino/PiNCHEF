@@ -165,20 +165,33 @@ struct SavedRecipesView: View {
     @Binding var savedRecipes: [Recipe]
     
     var body: some View {
-        ScrollView {
-            HStack {
-                Text("Favourites").font(.system(size: 40)).fontWeight(.black).foregroundColor(.yellow)
-                Spacer()
-            }.padding()
-            
-            if savedRecipes.isEmpty {
-                Text("Press the heart on the recipes to add favourites").font(.system(size: 30)).foregroundColor(.gray).padding().multilineTextAlignment(.center)
-            } else {
+        NavigationView {
+            ScrollView {
                 VStack {
-                    ForEach(savedRecipes) { recipe in
-                        RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: { self.toggleRecipeSaved(recipe) })
-                    }.padding()
-                }.navigationTitle("Ricette Salvate")
+                    HStack {
+                        Text("Favourites")
+                            .font(.system(size: 40))
+                            .fontWeight(.black)
+                            .foregroundColor(.yellow)
+                        Spacer()
+                    }
+                    .padding()
+                    
+                    if savedRecipes.isEmpty {
+                        Text("Press the heart on the recipes to add favourites")
+                            .font(.system(size: 30))
+                            .foregroundColor(.gray)
+                            .padding()
+                            .multilineTextAlignment(.center)
+                    } else {
+                        VStack {
+                            ForEach(savedRecipes) { recipe in
+                                RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: { self.toggleRecipeSaved(recipe) })
+                            }
+                            .padding()
+                        }
+                    }
+                }
             }
         }
     }
