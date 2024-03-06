@@ -404,7 +404,6 @@ struct RecipeDetailView: View {
                         )
                     }.background(Color(red: 249/255, green: 246/255, blue: 227/255))
                 }
-                
                 Spacer().frame(height: 20)
                 HStack(spacing: 20){
                     Spacer()
@@ -417,9 +416,9 @@ struct RecipeDetailView: View {
                             .background(.white)
                             .clipShape(Capsule())
                             .overlay(
-                                            Capsule()
-                                                .stroke(Color.yellow, lineWidth: 4)
-                                        )
+                                Capsule()
+                                    .stroke(Color.yellow, lineWidth: 4)
+                            )
                             .fontWeight(.black)
                     }
                     Button(action: {
@@ -438,7 +437,6 @@ struct RecipeDetailView: View {
                 }
                 Spacer()
             }
-            
             Spacer().frame(height: 25)
         }
     }
@@ -450,19 +448,36 @@ struct instructionsView: View {
     
     var body: some View {
         ScrollView {
+            HStack{
+                Text("Instructions")
+                    .font(.system(size: 35))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.yellow)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal,15)
+                Spacer()
+            }
             VStack(alignment: .leading) {
                 ForEach(recipe.instructions.indices, id: \.self) { index in
                     let stepNumber = index + 1
                     let instruction = recipe.instructions[index]
                     VStack(alignment: .leading) {
-                        Text("Step \(stepNumber)")
-                            .font(.system(size: 25))
-                            .fontWeight(.black)
-                            .foregroundColor(.yellow)
-                        Text(instruction.text)
-                            .font(.system(size: 20))
-                            .fontWeight(.semibold)
-                        Divider()
+                        HStack(alignment: .top) {
+                            Text("\(stepNumber)")
+                                .font(.system(size: 25))
+                                .fontWeight(.black)
+                                .foregroundColor(.yellow)
+                            Text(instruction.text)
+                                .font(.system(size: 20))
+                                .fontWeight(.semibold)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.white)
+                                .shadow(color: .gray, radius: 2)
+                        )
                     }
                     .padding([.bottom, .top], 5)
                 }
