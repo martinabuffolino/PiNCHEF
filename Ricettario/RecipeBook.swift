@@ -51,11 +51,11 @@ struct Recipe: Identifiable {
         }
 }
 
-var allRecipes: [Recipe] = antipastiRecipes + primiRecipes + secondiRecipes + dolciRecipes
+var allRecipes: [Recipe] = appetizersRecipes + first_cousesRecipes + second_coursesRecipes + dessertsRecipes
 
 var savedRecipes: [Recipe] = []
 
-var antipastiRecipes: [Recipe] = [
+var appetizersRecipes: [Recipe] = [
     Recipe(title: "French Fries",
            ingredients: [
                 Ingredient(name: "Potatoes", quantity: "2 large"),
@@ -112,7 +112,7 @@ var antipastiRecipes: [Recipe] = [
 
 ]
 
-var primiRecipes: [Recipe] = [
+var first_cousesRecipes: [Recipe] = [
     Recipe(title: "Tomato Sauce",
            ingredients: [
                 Ingredient(name: "Canned whole tomatoes", quantity: "28 oz"),
@@ -172,7 +172,7 @@ var primiRecipes: [Recipe] = [
            servingSize: 2)
 ]
 
-var secondiRecipes: [Recipe] = [
+var second_coursesRecipes: [Recipe] = [
     Recipe(title: "Braised Steak",
            ingredients: [
                 Ingredient(name: "Beef chuck steak", quantity: "2 lbs"),
@@ -235,7 +235,7 @@ var secondiRecipes: [Recipe] = [
            servingSize: 4)
 ]
 
-var dolciRecipes: [Recipe] = [
+var dessertsRecipes: [Recipe] = [
     Recipe(title: "Classic Pancakes",
            ingredients: [
                 Ingredient(name: "All-purpose flour", quantity: "1 cup"),
