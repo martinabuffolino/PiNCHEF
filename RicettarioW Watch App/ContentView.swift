@@ -10,6 +10,8 @@ struct ContentView: View {
     
     @State var scrollAmount = 0.0
     
+    @State var endRecipe = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             if currentRecipe.title == ""{
@@ -24,7 +26,7 @@ struct ContentView: View {
                 if currentInstruction < 0{
                     StartW()
                 }
-                else{
+                else if endRecipe == false{
                     VStack{
                         Text("Timer, \(currentRecipe.title)")
                             .padding(.top, 0)
@@ -48,6 +50,7 @@ struct ContentView: View {
                             }
                             else{
                                 Text("Fine Ricetta")
+                                    .onAppear(){endRecipe = true}
                             }
                             
                         }
@@ -55,6 +58,10 @@ struct ContentView: View {
                     }
                     
                 }
+                else{
+                    EndRecipeView(imageRecipe: Image(currentRecipe.imageName))
+                }
+                
                 
                 Text("")
                     .focusable(true)
@@ -64,11 +71,25 @@ struct ContentView: View {
                             print("avanti")
                             currentInstruction += 1
                             scrollAmount = 0
+                            
+                            // Se vado avanti dopo aver terminato la ricetta torna alla schermata home
+                            if endRecipe{
+                                endRecipe = false
+                                
+                                currentRecipe = Recipe(title: "", ingredients: [], instructions: [], imageName: "", description: "", isHeartRed: false, difficulty: .easy, time: 0, cost: .low, servingSize: 0)
+                                
+                                currentInstruction = -1
+                            }
                         }
                         else if Int(scrollAmount) == -1{
                             print("indietro")
                             currentInstruction -= 1
+                            if currentInstruction == -2{
+                                currentInstruction = -1
+                            }
                             scrollAmount = 0
+                            
+                            endRecipe = false
                         }
 
                     }
@@ -91,3 +112,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
