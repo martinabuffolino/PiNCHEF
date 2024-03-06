@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Tab bar and random function
 struct ContentView: View {
     @State private var isHeartRed = false
     @State private var savedRecipes = [Recipe]()
@@ -8,7 +9,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             TabView {
-                HomeView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, randomRecipes: $randomRecipes, antipastiRecipes: antipastiRecipes, primiRecipes: primiRecipes, secondiRecipes: secondiRecipes, dolciRecipes: dolciRecipes)
+                HomeView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, randomRecipes: $randomRecipes, allRecipes: allRecipes)
                     .tabItem {
                         Label("Cook", systemImage: "fork.knife")
                     }
@@ -32,15 +33,23 @@ struct ContentView: View {
     }
 }
 
+// Homepage
 struct HomeView: View {
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     @Binding var randomRecipes: [Recipe]
     
-    let antipastiRecipes: [Recipe]
-    let primiRecipes: [Recipe]
-    let secondiRecipes: [Recipe]
-    let dolciRecipes: [Recipe]
+    let allRecipes: [Recipe]
+           
+    @State private var searchText: String = ""
+    
+    var filteredRecipes: [Recipe] {
+        if searchText.isEmpty {
+            return randomRecipes
+        } else {
+            return allRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -52,7 +61,7 @@ struct HomeView: View {
                         .padding()
                     Spacer()
                 }
-                SearchBar()
+                SearchBar(searchText: $searchText)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -83,27 +92,55 @@ struct HomeView: View {
                     .padding()
                 }
                 
-                Text("RECIPES OF THE DAY")
-                    .font(.title)
-                    .fontWeight(.semibold)
-                    .padding(.top, 10)
-                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        Spacer()
-                        ForEach(randomRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                        if searchText.isEmpty {
+                            Text("RECIPES OF THE DAY")
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .padding(.top, 10)
+                            ForEach(randomRecipes) { recipe in
+                                NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                                     if self.isRecipeSaved(recipe) {
-                                        self.savedRecipes.removeAll(where: { $0.title == recipe.title })
+                                        self.savedRecipes.removeAll(where: { $0.id == recipe.id })
                                     } else {
                                         self.savedRecipes.append(recipe)
                                     }
-                                })
+                                })) {
+                                    RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                                        if self.isRecipeSaved(recipe) {
+                                            self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                        } else {
+                                            self.savedRecipes.append(recipe)
+                                        }
+                                    })
+                                }
+                            }
+                        } else {
+                            Text("RESULTS")
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .padding(.top, 10)
+                            ForEach(filteredRecipes) { recipe in
+                                NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                                    if self.isRecipeSaved(recipe) {
+                                        self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                    } else {
+                                        self.savedRecipes.append(recipe)
+                                    }
+                                })) {
+                                    RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                                        if self.isRecipeSaved(recipe) {
+                                            self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                        } else {
+                                            self.savedRecipes.append(recipe)
+                                        }
+                                    })
+                                }
                             }
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .background(
@@ -119,6 +156,7 @@ struct HomeView: View {
     }
 }
 
+// Filtered recipes menu
 struct RecipeCategoryView: View {
     enum CategoryType {
         case antipasti, primi, secondi, dolci
@@ -142,7 +180,13 @@ struct RecipeCategoryView: View {
         ScrollView {
             VStack {
                 ForEach(recipes) { recipe in
-                    NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                    NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                        if self.isRecipeSaved(recipe) {
+                            self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                        } else {
+                            self.savedRecipes.append(recipe)
+                        }
+                    })) {
                         RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                             if self.isRecipeSaved(recipe) {
                                 self.savedRecipes.removeAll(where: { $0.id == recipe.id })
@@ -164,6 +208,7 @@ struct RecipeCategoryView: View {
     }
 }
 
+// Top black menu buttons
 struct CategoryButton: View {
     let title: String
     let imageName: String
@@ -190,6 +235,7 @@ struct CategoryButton: View {
     }
 }
 
+// Favourite rcipes view
 struct SavedRecipesView: View {
     @Binding var savedRecipes: [Recipe]
     
@@ -212,7 +258,13 @@ struct SavedRecipesView: View {
             } else {
                 VStack {
                     ForEach(savedRecipes) { recipe in
-                        NavigationLink(destination: RecipeDetailView(recipe: recipe))  {
+                        NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                            if self.isRecipeSaved(recipe) {
+                                self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                            } else {
+                                self.savedRecipes.append(recipe)
+                            }
+                        }))  {
                             RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                                 if self.isRecipeSaved(recipe) {
                                     self.savedRecipes.removeAll(where: { $0.id == recipe.id })
@@ -232,18 +284,18 @@ struct SavedRecipesView: View {
     }
 }
 
-
+// Search bar
 struct SearchBar: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
     
     var body: some View {
         ZStack(alignment: .leading) {
-            TextField("Cerca ricetta", text: $searchText)
+            TextField("Search Recipes", text: $searchText)
                 .padding(7)
                 .padding(.leading, 30)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
-                .padding(.horizontal, 15)
+                .padding(.horizontal, 10)
             
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
@@ -252,18 +304,7 @@ struct SearchBar: View {
     }
 }
 
-struct RecipeView: View {
-    var recipe: Recipe
-    @Binding var isHeartRed: Bool
-    
-    var body: some View {
-        NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-            RecipeCard(recipe: recipe, isHeartRed: isHeartRed, toggleHeart: {})
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
+// Recipes clickable cards
 struct RecipeCard: View {
     var recipe: Recipe
     var isHeartRed: Bool
@@ -308,6 +349,7 @@ struct RecipeCard: View {
     }
 }
 
+// Recipes details (4 yellow squares)
 struct RecipePropertyView: View {
     var imageName: String
     var value: String
@@ -337,10 +379,13 @@ struct RecipePropertyView: View {
     }
 }
 
+// Recipe full page
 struct RecipeDetailView: View {
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
     
     var recipe: Recipe
+    var isHeartRed: Bool
+    var toggleHeart: () -> Void
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -375,15 +420,14 @@ struct RecipeDetailView: View {
                             HStack{
                                 Spacer()
                                 Button(action: {
-                                    
+                                    toggleHeart()
                                 }) {
-                                    Image(systemName:"heart")
-                                        .foregroundColor(.white)
-                                        .padding(12)
+                                    Image(systemName: isHeartRed ? "heart.fill" : "heart")
+                                        .foregroundColor(isHeartRed ? .red : .white)
+                                        .padding(8)
                                         .background(Color.black.opacity(0.6))
                                         .clipShape(Circle())
-                                        .padding(15)
-                                        .font(.system(size: 24))
+                                        .padding(8)
                                 }
                             }
                             Spacer()
@@ -497,8 +541,8 @@ struct RecipeDetailView: View {
     }
 }
 
+// Recipes Steps 
 struct instructionsView: View {
-    
     var recipe: Recipe
     
     var body: some View {
@@ -524,7 +568,6 @@ struct instructionsView: View {
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
