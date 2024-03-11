@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var isHeartRed = false
     @State private var savedRecipes = [Recipe]()
     @State private var randomRecipes: [Recipe] = []
-    
+    @StateObject private var watchConnector:WatchConnector = WatchConnector()
     var body: some View {
         NavigationView {
             TabView {
@@ -41,6 +41,7 @@ struct ContentView: View {
 
 // Homepage
 struct HomeView: View {
+    @StateObject private var watchConnector:WatchConnector = WatchConnector()
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     @Binding var randomRecipes: [Recipe]
@@ -75,8 +76,10 @@ struct HomeView: View {
                             RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                                 if self.isRecipeSaved(recipe) {
                                     self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                    watchConnector.sendMessage(key: "rmvPref", value: recipe.title)
                                 } else {
                                     self.savedRecipes.append(recipe)
+                                    watchConnector.sendMessage(key: "addPref", value: recipe.title)
                                 }
                             })
                         }
@@ -164,7 +167,7 @@ struct CategoryButton<Destination: View>: View {
 
 struct SavedRecipesView: View {
     @Binding var savedRecipes: [Recipe]
-    
+    @StateObject private var watchConnector:WatchConnector = WatchConnector()
     var body: some View {
         NavigationView {
             ScrollView {
@@ -235,7 +238,7 @@ struct RecipeCard: View {
     var recipe: Recipe
     var isHeartRed: Bool
     var toggleHeart: () -> Void
-    
+    @StateObject private var watchConnector:WatchConnector = WatchConnector()
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: isHeartRed, toggleHeart: toggleHeart)) {
             VStack(alignment: .leading, spacing: 0) {
@@ -353,6 +356,7 @@ struct RecipeDetailView: View {
                                 toggleHeart()
                             }) {
                                 Image(systemName: isHeartRed ? "heart.fill" : "heart")
+                                
                                     .foregroundColor(isHeartRed ? .red : .white)
                                     .padding(8)
                                     .background(Color.black.opacity(0.6))

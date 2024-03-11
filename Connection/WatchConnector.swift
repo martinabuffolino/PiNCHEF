@@ -19,6 +19,8 @@ class WatchConnector: ObservableObject{
     private var connectivityProvider: ConnectivityProvider
     
     @Published var recipeTitle: String = ""
+    @Published var addPrefTitle: String = ""
+    @Published var rmvPrefTitle: String = ""
     
     var valueModel: PassthroughSubject<Value, Never> = PassthroughSubject<Value, Never> ()
     var requests: AnyCancellable?
@@ -33,6 +35,10 @@ class WatchConnector: ObservableObject{
             switch value.path{
             case "testo":
                 self.recipeTitle = value.value
+            case "addPref":
+                self.addPrefTitle = value.value
+            case "rmvPref":
+                self.rmvPrefTitle = value.value
             default:
                 print("Error")
                 
@@ -47,4 +53,5 @@ class WatchConnector: ObservableObject{
         connectivityProvider.send(message: message)
     }
 }
-                                   
+
+
