@@ -8,6 +8,7 @@ struct Ingredient {
 struct Step: Codable {
     let type: String
     let text: String
+    var timer: Int? = nil
 }
 
 enum Difficulty: String {
@@ -67,7 +68,7 @@ var appetizersRecipes: [Recipe] = [
            instructions: [
                 Step(type: "Cut", text: "Peel and cut the potatoes ."),
                 Step(type: "Cook", text: "Heat vegetable oil to 160°C."),
-                Step(type: "Wait", text: "Fry for 5-6 minutes."),
+                Step(type: "Wait", text: "Fry for 5-6 minutes.", timer: 60),
                 Step(type: "Mix", text: "Season with salt and our favorite dipping sauce."),
            ],
            imageName: "fries",
