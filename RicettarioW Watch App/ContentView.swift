@@ -12,12 +12,8 @@ struct ContentView: View {
     @State var savedRec: [Recipe] = []
     
     var body: some View {
-        
-        
-      
         VStack(alignment: .leading) {
-          
-        if currentRecipe.title == ""{
+           if currentRecipe.title == ""{
                 if !savedRec.isEmpty{
                     Text("Favorites")
                         .font(.title2)

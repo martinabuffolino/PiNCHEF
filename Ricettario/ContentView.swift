@@ -76,10 +76,8 @@ struct HomeView: View {
                             RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                                 if self.isRecipeSaved(recipe) {
                                     self.savedRecipes.removeAll(where: { $0.id == recipe.id })
-                                    watchConnector.sendMessage(key: "rmvPref", value: recipe.title)
                                 } else {
                                     self.savedRecipes.append(recipe)
-                                    watchConnector.sendMessage(key: "addPref", value: recipe.title)
                                 }
                             })
                         }
@@ -252,7 +250,14 @@ struct RecipeCard: View {
                         .frame(height: 180)
                         .clipped()
                     
-                    Button(action: toggleHeart) {
+                    Button(action:  {
+                        toggleHeart()
+                        if(isHeartRed){
+                            watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
+                        else if (!isHeartRed){
+                            watchConnector.sendMessage(key: "addPref", value: recipe.title)
+                        }
+                    }){
                         Image(systemName: isHeartRed ? "heart.fill" : "heart")
                             .foregroundColor(isHeartRed ? .red : .white)
                             .padding(8)
