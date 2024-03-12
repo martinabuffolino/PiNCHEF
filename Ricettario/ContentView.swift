@@ -11,7 +11,9 @@ struct ContentView: View {
     @State private var isHeartRed = false
     @State private var savedRecipes = [Recipe]()
     @State private var randomRecipes: [Recipe] = []
+    
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
+    
     var body: some View {
         NavigationView {
             TabView {
@@ -42,11 +44,13 @@ struct ContentView: View {
 // Homepage
 struct HomeView: View {
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
+    
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
     @Binding var randomRecipes: [Recipe]
-    let allRecipes: [Recipe]
     @State private var searchText: String = ""
+    
+    let allRecipes: [Recipe]
     
     var filteredRecipes: [Recipe] {
         searchText.isEmpty ? randomRecipes : allRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
@@ -102,6 +106,7 @@ struct RecipeCategoryView: View {
     
     @Binding var isHeartRed: Bool
     @Binding var savedRecipes: [Recipe]
+    
     var recipes: [Recipe]
     var category: CategoryType
     
@@ -165,7 +170,9 @@ struct CategoryButton<Destination: View>: View {
 
 struct SavedRecipesView: View {
     @Binding var savedRecipes: [Recipe]
+    
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -236,55 +243,63 @@ struct RecipeCard: View {
     var recipe: Recipe
     var isHeartRed: Bool
     var toggleHeart: () -> Void
+    
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
+   
+    @State private var isPopoverPresented = false
+
     var body: some View {
-        NavigationLink(destination: RecipeDetailView(recipe: recipe, isHeartRed: isHeartRed, toggleHeart: toggleHeart)) {
-            VStack(alignment: .leading, spacing: 0) {
-                ZStack(alignment: .topTrailing) {
-                    Image(recipe.imageName)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity, maxHeight: 150)
-                        .edgesIgnoringSafeArea(.horizontal)
-                        .aspectRatio(4/3, contentMode: .fill)
-                        .frame(height: 180)
-                        .clipped()
-                    
-                    Button(action:  {
-                        toggleHeart()
-                        if(isHeartRed){
-                            watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
-                        else if (!isHeartRed){
-                            watchConnector.sendMessage(key: "addPref", value: recipe.title)
-                        }
-                    }){
-                        Image(systemName: isHeartRed ? "heart.fill" : "heart")
-                            .foregroundColor(isHeartRed ? .red : .white)
-                            .padding(8)
-                            .background(Color.black.opacity(0.6))
-                            .clipShape(Circle())
-                            .padding(8)
-                    }
-                }
+        VStack(alignment: .leading, spacing: 0) {
+            ZStack(alignment: .topTrailing) {
+                Image(recipe.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: 150)
+                    .edgesIgnoringSafeArea(.horizontal)
+                    .aspectRatio(4/3, contentMode: .fill)
+                    .frame(height: 180)
+                    .clipped()
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(recipe.title)
-                        .font(.system(size: 25))
-                        .fontWeight(.heavy)
-                        .lineLimit(1)
-                    
-                    Text(recipe.description)
-                        .foregroundColor(.gray)
-                        .fontWeight(.semibold)
-                        .font(.system(size: 15))
-                        .lineLimit(3)
+                Button(action:  {
+                    toggleHeart()
+                    if(isHeartRed){
+                        watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
+                    else if (!isHeartRed){
+                        watchConnector.sendMessage(key: "addPref", value: recipe.title)
+                    }
+                }){
+                    Image(systemName: isHeartRed ? "heart.fill" : "heart")
+                        .foregroundColor(isHeartRed ? .red : .white)
+                        .padding(8)
+                        .background(Color.black.opacity(0.6))
+                        .clipShape(Circle())
+                        .padding(8)
                 }
-                .padding(5)
             }
-            .background(Color.white)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .padding(.horizontal)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(recipe.title)
+                    .font(.system(size: 25))
+                    .fontWeight(.heavy)
+                    .lineLimit(1)
+                
+                Text(recipe.description)
+                    .foregroundColor(.gray)
+                    .fontWeight(.semibold)
+                    .font(.system(size: 15))
+                    .lineLimit(3)
+            }
+            .padding(5)
+        }
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+        .padding(.horizontal)
+        .onTapGesture {
+            isPopoverPresented.toggle()
+        }
+        .popover(isPresented: $isPopoverPresented, arrowEdge: .bottom) {
+            RecipeDetailView(recipe: recipe, isHeartRed: isHeartRed, toggleHeart: toggleHeart)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -321,7 +336,10 @@ struct RecipePropertyView: View {
 // Recipe full page
 struct RecipeDetailView: View {
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
-    
+   
+    @State var isInstructionsSheetPresented = false
+    @State var selectedRecipe: Recipe? = nil
+        
     var recipe: Recipe
     var isHeartRed: Bool
     var toggleHeart: () -> Void
@@ -433,13 +451,15 @@ struct RecipeDetailView: View {
                 Spacer().frame(height: 20)
                 HStack(spacing: 20){
                     Spacer()
-                    NavigationLink(destination: instructionsView(recipe: recipe)) {
+                    Button(action: {
+                        self.isInstructionsSheetPresented.toggle()
+                    }) {
                         Text("Instructions")
                             .font(.system(size: 14))
                             .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
                             .foregroundColor(.yellow)
                             .frame(maxWidth: .infinity)
-                            .background(.white)
+                            .background(.clear)
                             .clipShape(Capsule())
                             .overlay(
                                 Capsule()
@@ -447,6 +467,16 @@ struct RecipeDetailView: View {
                             )
                             .fontWeight(.black)
                     }
+
+                    .popover(isPresented: $isInstructionsSheetPresented) {
+                        GeometryReader { geometry in
+                            VStack {
+                                Spacer()
+                                InstructionsPopover(recipe: recipe, isInstructionsPopoverPresented: $isInstructionsSheetPresented)
+                                    }
+                            }
+                        }
+                                                
                     Button(action: {
                         watchConnector.sendMessage(key: "testo", value: recipe.title)
                     }) {
@@ -469,46 +499,61 @@ struct RecipeDetailView: View {
 }
 
 // Recipes Steps
-struct instructionsView: View {
+struct InstructionsPopover: View {
     var recipe: Recipe
     
+    @Binding var isInstructionsPopoverPresented: Bool
+    
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        ScrollView {
+        VStack {
             HStack{
                 Text("Instructions")
-                    .font(.system(size: 35))
+                    .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.yellow)
-                    .padding(.vertical, 5)
-                    .padding(.horizontal,15)
+                    .padding(.vertical, 10)
                 Spacer()
-            }
-            VStack(alignment: .leading) {
-                ForEach(recipe.instructions.indices, id: \.self) { index in
-                    let stepNumber = index + 1
-                    let instruction = recipe.instructions[index]
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            Text("\(stepNumber)")
-                                .font(.system(size: 25))
-                                .fontWeight(.black)
-                                .foregroundColor(.yellow)
-                            Text(instruction.text)
-                                .font(.system(size: 20))
-                                .fontWeight(.semibold)
-                            Spacer()
-                        }
-                        .padding(10)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
-                                .shadow(color: .gray, radius: 2)
-                        )
-                    }
-                    .padding([.bottom, .top], 5)
+                Button("✖") {
+                    dismiss()
                 }
             }
-            .padding()
+            
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(recipe.instructions.indices, id: \.self) { index in
+                        let stepNumber = index + 1
+                        let instruction = recipe.instructions[index]
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .top) {
+                                Text("\(stepNumber)")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.yellow)
+                                Text(instruction.text)
+                                    .font(.system(size: 16))
+                                    .fontWeight(.semibold)
+                                Spacer()
+                            }
+                            .padding(10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white)
+                                    .shadow(color: .gray, radius: 2)
+                            )
+                        }
+                        .padding([.bottom, .top], 5)
+                    }
+                }
+               
+                .padding()
+                
+                
+            }
+            
         }
+        .padding()
+        .background(.yellow)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 }
