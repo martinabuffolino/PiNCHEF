@@ -57,7 +57,6 @@ struct HomeView: View {
     }
     
     var body: some View {
-            
             NavigationStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0){
@@ -143,7 +142,6 @@ struct RecipeCategoryView: View {
     }
 }
 
-
 // Top black menu buttons
 struct CategoryButton<Destination: View>: View {
     let title: String
@@ -223,26 +221,6 @@ struct SavedRecipesView: View {
         }
     }
 }
-
-// Search bar
-//struct SearchBar: View {
-//    @Binding var searchText: String
-//    
-//    var body: some View {
-//        ZStack(alignment: .leading) {
-//            TextField("Search Recipes", text: $searchText)
-//                .padding(7)
-//                .padding(.leading, 30)
-//                .background(Color(.systemGray6))
-//                .cornerRadius(8)
-//                .padding(.horizontal, 10)
-//            
-//            Image(systemName: "magnifyingglass")
-//                .foregroundColor(.gray)
-//                .padding(.leading, 15)
-//        }
-//    }
-//}
 
 // Recipes clickable cards
 struct RecipeCard: View {
