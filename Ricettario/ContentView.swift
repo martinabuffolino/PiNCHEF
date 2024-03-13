@@ -9,7 +9,7 @@ struct ContentView_Previews: PreviewProvider {
 // Tab bar and random function
 struct ContentView: View {
     @State private var isHeartRed = false
-    @State private var savedRecipes = [Recipe]()
+    @StateObject private var recipeManager = RecipeManager()
     @State private var randomRecipes: [Recipe] = []
     
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
@@ -17,11 +17,12 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             TabView {
-                HomeView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, randomRecipes: $randomRecipes, allRecipes: allRecipes)
+                HomeView(isHeartRed: $isHeartRed
+                         , randomRecipes: $randomRecipes, allRecipes: allRecipes, recipeManager: recipeManager)
                     .tabItem {
                         Label("Cook", systemImage: "text.book.closed.fill")
                     }
-                SavedRecipesView(savedRecipes: $savedRecipes)
+                SavedRecipesView(recipeManager: recipeManager)
                     .tabItem {
                         Label("Saved", systemImage: "heart")
                     }

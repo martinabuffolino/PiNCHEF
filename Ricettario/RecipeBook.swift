@@ -1,6 +1,6 @@
 import Foundation
 
-struct Ingredient {
+struct Ingredient: Codable {
     let name: String
     let quantity: String
     var isSelected: Bool = false
@@ -12,19 +12,19 @@ struct Step: Codable {
     var timer: Int? = nil
 }
 
-enum Difficulty: String {
+enum Difficulty: String, Codable {
     case easy = "Easy"
     case medium = "Medium"
     case hard = "Hard"
 }
 
-enum Cost: String {
+enum Cost: String, Codable {
     case low = "Low"
     case medium = "Medium"
     case high = "High"
 }
 
-struct Recipe: Identifiable {
+struct Recipe: Identifiable, Codable {
     let id: String
     let title: String
     let ingredients: [Ingredient]
@@ -54,8 +54,6 @@ struct Recipe: Identifiable {
 }
 
 var allRecipes: [Recipe] = appetizersRecipes + first_cousesRecipes + second_coursesRecipes + dessertsRecipes
-
-var savedRecipes: [Recipe] = []
 
 var appetizersRecipes: [Recipe] = [
     Recipe(title: "French Fries",
