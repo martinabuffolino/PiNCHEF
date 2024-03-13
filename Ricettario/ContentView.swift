@@ -56,10 +56,6 @@ struct HomeView: View {
         searchText.isEmpty ? randomRecipes : allRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
     
-//    init() {
-//        UITableView.appearance().bar
-//    }
-    
     var body: some View {
             
             NavigationStack {
@@ -79,9 +75,8 @@ struct HomeView: View {
                             }.padding()
                         }
                         
-                        
-                        VStack {
-                            Text(searchText.isEmpty ? "RECIPES OF THE DAY" : "RESULTS").font(.title).fontWeight(.semibold).padding(.top, 10)
+                        Text(searchText.isEmpty ? "RECIPES OF THE DAY" : "RESULTS").font(.title).fontWeight(.semibold).padding(10)
+                        VStack(spacing: 20) {
                             ForEach(searchText.isEmpty ? randomRecipes : filteredRecipes) { recipe in
                                 RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
                                     if self.isRecipeSaved(recipe) {
@@ -230,24 +225,24 @@ struct SavedRecipesView: View {
 }
 
 // Search bar
-struct SearchBar: View {
-    @Binding var searchText: String
-    
-    var body: some View {
-        ZStack(alignment: .leading) {
-            TextField("Search Recipes", text: $searchText)
-                .padding(7)
-                .padding(.leading, 30)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 10)
-            
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .padding(.leading, 15)
-        }
-    }
-}
+//struct SearchBar: View {
+//    @Binding var searchText: String
+//    
+//    var body: some View {
+//        ZStack(alignment: .leading) {
+//            TextField("Search Recipes", text: $searchText)
+//                .padding(7)
+//                .padding(.leading, 30)
+//                .background(Color(.systemGray6))
+//                .cornerRadius(8)
+//                .padding(.horizontal, 10)
+//            
+//            Image(systemName: "magnifyingglass")
+//                .foregroundColor(.gray)
+//                .padding(.leading, 15)
+//        }
+//    }
+//}
 
 // Recipes clickable cards
 struct RecipeCard: View {
@@ -344,12 +339,178 @@ struct RecipePropertyView: View {
 }
 
 // Recipe full page
+//struct RecipeDetailView: View {
+//    @StateObject private var watchConnector:WatchConnector = WatchConnector()
+//   
+//    @State var isInstructionsSheetPresented = false
+//    @State var selectedRecipe: Recipe? = nil
+//    
+//    var recipe: Recipe
+//    var isHeartRed: Bool
+//    var toggleHeart: () -> Void
+//    
+//    var body: some View {
+//        ScrollView(.vertical, showsIndicators: false) {
+//            VStack(alignment: .leading){
+//                ZStack{
+//                    Image(recipe.imageName)
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(maxWidth: .infinity, maxHeight: 200)
+//                        .edgesIgnoringSafeArea(.horizontal)
+//                        .aspectRatio(4/3, contentMode: .fill)
+//                        .frame(height: 200)
+//                        .clipped()
+//                    
+//                    Color.black.opacity(0.5)
+//                        .frame(maxWidth: .infinity, maxHeight: 200)
+//                        .edgesIgnoringSafeArea(.horizontal)
+//                        .aspectRatio(4/3, contentMode: .fill)
+//                        .frame(height: 200)
+//                    
+//                    Text(recipe.title)
+//                        .fontWeight(.black)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal, 15)
+//                        .padding(.vertical)
+//                        .foregroundColor(.white)
+//                        .font(.system(size: 40))
+//                        .lineLimit(nil)
+//                    
+//                    VStack{
+//                        HStack{
+//                            Spacer()
+//                            Button(action: {
+//                                toggleHeart()
+//                            }) {
+//                                Image(systemName: isHeartRed ? "heart.fill" : "heart")
+//                                
+//                                    .foregroundColor(isHeartRed ? .red : .white)
+//                                    .padding(8)
+//                                    .background(Color.black.opacity(0.6))
+//                                    .clipShape(Circle())
+//                                    .padding(8)
+//                            }
+//                        }
+//                        Spacer()
+//                    }
+//                }
+//                
+//                VStack{
+//                    HStack {
+//                        VStack(spacing: 10) {
+//                            HStack(spacing: 10) {
+//                                RecipePropertyView(imageName: "frying.pan", value: "\(recipe.difficulty)", label: "Difficulty")
+//                                RecipePropertyView(imageName: "person", value: "\(recipe.servingSize)", label: "Serving")
+//                            }
+//                            HStack(spacing: 10) {
+//                                RecipePropertyView(imageName: "timer", value: "\(recipe.time)m", label: "Time")
+//                                RecipePropertyView(imageName: "dollarsign.circle", value: "\(recipe.cost)", label: "Cost")
+//                            }
+//                        }
+//                    }
+//                }.padding()
+//                
+//                Text("Ingredients")
+//                    .font(.system(size: 35))
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.yellow)
+//                    .padding(.vertical, 5)
+//                    .padding(.horizontal,15)
+//                
+//                HStack{
+//                    ZStack{
+//                        VStack(alignment: .leading, spacing: 5) {
+//                            ForEach(recipe.ingredients, id: \.name) { ingredient in
+//                                HStack {
+//                                    Circle()
+//                                        .frame(width: 15, height: 15)
+//                                        .foregroundColor(Color.white)
+//                                        .shadow(radius: 1)
+//                                        .overlay(
+//                                            Circle()
+//                                                .stroke(Color.black, lineWidth: 0.3)
+//                                        )
+//                        
+//                                    Text("\(ingredient.name)")
+//                                        .fontWeight(.semibold)
+//                                        .font(.system(size: 22))
+//                                    Spacer()
+//                                    Text("\(ingredient.quantity)")
+//                                        .fontWeight(.black)
+//                                        .font(.system(size: 18))
+//                                }
+//                                Divider()
+//                            }
+//                        }
+//                        .font(.headline)
+//                        .fontWeight(.medium)
+//                        .padding(15)
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.clear)
+//                        .overlay(
+//                            Rectangle()
+//                                .stroke(Color.black, lineWidth: 0.3)
+//                        )
+//                    }.background(Color(red: 249/255, green: 246/255, blue: 227/255))
+//                }
+//                Spacer().frame(height: 20)
+//                HStack(spacing: 20){
+//                    Spacer()
+//                    Button(action: {
+//                        self.isInstructionsSheetPresented.toggle()
+//                    }) {
+//                        Text("Instructions")
+//                            .font(.system(size: 14))
+//                            .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
+//                            .foregroundColor(.yellow)
+//                            .frame(maxWidth: .infinity)
+//                            .background(.clear)
+//                            .clipShape(Capsule())
+//                            .overlay(
+//                                Capsule()
+//                                    .stroke(Color.yellow, lineWidth: 4)
+//                            )
+//                            .fontWeight(.black)
+//                    }
+//
+//                    .popover(isPresented: $isInstructionsSheetPresented) {
+//                        GeometryReader { geometry in
+//                            VStack {
+//                                Spacer()
+//                                InstructionsPopover(recipe: recipe, isInstructionsPopoverPresented: $isInstructionsSheetPresented)
+//                                    }
+//                            }
+//                        }
+//                                                
+//                    Button(action: {
+//                        watchConnector.sendMessage(key: "testo", value: recipe.title)
+//                    }) {
+//                        Text("Cook")
+//                            .font(.system(size: 17))
+//                            .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
+//                            .foregroundColor(.white)
+//                            .frame(maxWidth: .infinity)
+//                            .background(.yellow)
+//                            .clipShape(Capsule())
+//                            .fontWeight(.black)
+//                    }
+//                    Spacer()
+//                }
+//                Spacer()
+//            }
+//            Spacer().frame(height: 25)
+//        }
+//    }
+//}
 struct RecipeDetailView: View {
-    @StateObject private var watchConnector:WatchConnector = WatchConnector()
+    @StateObject private var watchConnector: WatchConnector = WatchConnector()
    
     @State var isInstructionsSheetPresented = false
     @State var selectedRecipe: Recipe? = nil
-        
+    
+    @State private var selectedIngredients: [String: Bool] = [:]
+    
     var recipe: Recipe
     var isHeartRed: Bool
     var toggleHeart: () -> Void
@@ -389,7 +550,6 @@ struct RecipeDetailView: View {
                                 toggleHeart()
                             }) {
                                 Image(systemName: isHeartRed ? "heart.fill" : "heart")
-                                
                                     .foregroundColor(isHeartRed ? .red : .white)
                                     .padding(8)
                                     .background(Color.black.opacity(0.6))
@@ -425,25 +585,33 @@ struct RecipeDetailView: View {
                 
                 HStack{
                     ZStack{
-                        VStack(alignment: .leading, spacing: 5) {
+                        VStack{
+                            Divider()
                             ForEach(recipe.ingredients, id: \.name) { ingredient in
-                                HStack {
-                                    Circle()
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(Color.white)
-                                        .shadow(radius: 1)
-                                        .overlay(
-                                            Circle()
-                                                .stroke(Color.black, lineWidth: 0.3)
-                                        )
-                                    Text("\(ingredient.name)")
-                                        .fontWeight(.semibold)
-                                        .font(.system(size: 22))
-                                    Spacer()
-                                    Text("\(ingredient.quantity)")
-                                        .fontWeight(.black)
-                                        .font(.system(size: 18))
+                                Button(action: {
+                                    selectedIngredients[ingredient.name, default: false].toggle()
+                                }) {
+                                    HStack {
+                                        Circle()
+                                            .frame(width: 15, height: 15)
+                                            .foregroundColor(selectedIngredients[ingredient.name] ?? false ? .yellow : .white)
+                                            .shadow(radius: 1)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.black, lineWidth: 0.3)
+                                            )
+                                        
+                                        Text("\(ingredient.name)")
+                                            .fontWeight(.semibold)
+                                            .font(.system(size: 22))
+                                        Spacer()
+                                        
+                                        Text("\(ingredient.quantity)")
+                                            .fontWeight(.black)
+                                            .font(.system(size: 18))
+                                    }
                                 }
+                                .buttonStyle(PlainButtonStyle())
                                 Divider()
                             }
                         }
@@ -456,8 +624,11 @@ struct RecipeDetailView: View {
                             Rectangle()
                                 .stroke(Color.black, lineWidth: 0.3)
                         )
-                    }.background(Color(red: 249/255, green: 246/255, blue: 227/255))
+                    }
+                    .background(Color(red: 249/255, green: 246/255, blue: 227/255))
+                    .padding()
                 }
+                
                 Spacer().frame(height: 20)
                 HStack(spacing: 20){
                     Spacer()
@@ -477,15 +648,14 @@ struct RecipeDetailView: View {
                             )
                             .fontWeight(.black)
                     }
-
                     .popover(isPresented: $isInstructionsSheetPresented) {
                         GeometryReader { geometry in
                             VStack {
                                 Spacer()
                                 InstructionsPopover(recipe: recipe, isInstructionsPopoverPresented: $isInstructionsSheetPresented)
-                                    }
                             }
                         }
+                    }
                                                 
                     Button(action: {
                         watchConnector.sendMessage(key: "testo", value: recipe.title)
@@ -507,6 +677,7 @@ struct RecipeDetailView: View {
         }
     }
 }
+
 
 // Recipes Steps
 struct InstructionsPopover: View {

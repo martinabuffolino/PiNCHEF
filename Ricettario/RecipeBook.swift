@@ -3,6 +3,7 @@ import Foundation
 struct Ingredient {
     let name: String
     let quantity: String
+    var isSelected: Bool = false
 }
 
 struct Step: Codable {
@@ -223,13 +224,13 @@ var dessertsRecipes: [Recipe] = [
     Recipe(title: "Classic Pancakes",
            ingredients: [
                 Ingredient(name: "All-purpose flour", quantity: "1 cup"),
-                Ingredient(name: "Granulated sugar", quantity: "2 tablespoons"),
+                Ingredient(name: "Granulated sugar", quantity: "2 tbsp"),
                 Ingredient(name: "Baking powder", quantity: "2 teaspoons"),
-                Ingredient(name: "Salt", quantity: "1/2 teaspoon"),
+                Ingredient(name: "Salt", quantity: "1/2 tsp"),
                 Ingredient(name: "Milk", quantity: "1 cup"),
-                Ingredient(name: "Unsalted butter, melted", quantity: "2 tablespoons"),
+                Ingredient(name: "Unsalted butter, melted", quantity: "2 tbsp"),
                 Ingredient(name: "Large egg", quantity: "1"),
-                Ingredient(name: "Vanilla extract", quantity: "1 teaspoon"),
+                Ingredient(name: "Vanilla extract", quantity: "1 tsp"),
            ],
            instructions: [
                 Step(type: "Mix", text: "Whisk the flour, sugar, baking powder, and salt."),
@@ -251,12 +252,12 @@ var dessertsRecipes: [Recipe] = [
            ingredients: [
                 Ingredient(name: "All-purpose flour", quantity: "2 cups"),
                 Ingredient(name: "Granulated sugar", quantity: "1/2 cup"),
-                Ingredient(name: "Baking powder", quantity: "2 teaspoons"),
+                Ingredient(name: "Baking powder", quantity: "2 tsp"),
                 Ingredient(name: "Salt", quantity: "1/2 teaspoon"),
                 Ingredient(name: "Milk", quantity: "1/2 cup"),
                 Ingredient(name: "Vegetable oil", quantity: "1/4 cup"),
                 Ingredient(name: "Large egg", quantity: "1"),
-                Ingredient(name: "Vanilla extract", quantity: "1 teaspoon"),
+                Ingredient(name: "Vanilla extract", quantity: "1 tsp"),
                 Ingredient(name: "Fresh blueberries", quantity: "1 cup"),
            ],
            instructions: [
