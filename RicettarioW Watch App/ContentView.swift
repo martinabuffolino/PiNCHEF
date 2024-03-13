@@ -20,7 +20,7 @@ struct ContentView: View {
             ZStack(alignment: .topLeading) { // Usa ZStack per sovrapporre elementi
             // Timer circolare posizionato in alto a sinistra
             if timerRemaining > 0 {
-                ZStack {
+                VStack {
                     Circle()
                         .stroke(lineWidth: 5)
                         .opacity(0.3)

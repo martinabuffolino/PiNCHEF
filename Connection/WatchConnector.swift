@@ -37,8 +37,10 @@ class WatchConnector: ObservableObject{
                 self.recipeTitle = value.value
             case "addPref":
                 self.addPrefTitle = value.value
+                self.rmvPrefTitle=""
             case "rmvPref":
                 self.rmvPrefTitle = value.value
+                self.addPrefTitle=""
             default:
                 print("Error")
                 

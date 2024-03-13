@@ -56,39 +56,50 @@ struct HomeView: View {
         searchText.isEmpty ? randomRecipes : allRecipes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
     }
     
+//    init() {
+//        UITableView.appearance().bar
+//    }
+    
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0){
-                HStack {
-                    Text("Recipe Book").font(.system(size: 40)).fontWeight(.black).padding()
-                    Spacer()
-                }
-                SearchBar(searchText: $searchText)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        CategoryButton(title: "Appetizers", imageName: "appetizers", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: appetizersRecipes, category: .appetizers))
-                        CategoryButton(title: "First Courses", imageName: "first_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: first_cousesRecipes, category: .first_couses))
-                        CategoryButton(title: "Second Courses", imageName: "second_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: second_coursesRecipes, category: .second_courses))
-                        CategoryButton(title: "Desserts", imageName: "desserts", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: dessertsRecipes, category: .desserts))
-                    }.padding()
-                }
-                
+            
+            NavigationStack {
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        Text(searchText.isEmpty ? "RECIPES OF THE DAY" : "RESULTS").font(.title).fontWeight(.semibold).padding(.top, 10)
-                        ForEach(searchText.isEmpty ? randomRecipes : filteredRecipes) { recipe in
-                            RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
-                                if self.isRecipeSaved(recipe) {
-                                    self.savedRecipes.removeAll(where: { $0.id == recipe.id })
-                                } else {
-                                    self.savedRecipes.append(recipe)
-                                }
-                            })
+                    VStack(spacing: 0){
+                        //                HStack {
+                        //                    Text().font(.system(size: 40)).fontWeight(.black).padding()
+                        //                    Spacer()
+                        //                }
+                        //                SearchBar(searchText: $searchText)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                CategoryButton(title: "Appetizers", imageName: "appetizers", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: appetizersRecipes, category: .appetizers))
+                                CategoryButton(title: "First Courses", imageName: "first_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: first_cousesRecipes, category: .first_couses))
+                                CategoryButton(title: "Second Courses", imageName: "second_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: second_coursesRecipes, category: .second_courses))
+                                CategoryButton(title: "Desserts", imageName: "desserts", destination: RecipeCategoryView(isHeartRed: $isHeartRed, savedRecipes: $savedRecipes, recipes: dessertsRecipes, category: .desserts))
+                            }.padding()
                         }
-                    }.buttonStyle(PlainButtonStyle())
-                }
-            }.background(Image("background").resizable().scaledToFill())
-        }
+                        
+                        
+                        VStack {
+                            Text(searchText.isEmpty ? "RECIPES OF THE DAY" : "RESULTS").font(.title).fontWeight(.semibold).padding(.top, 10)
+                            ForEach(searchText.isEmpty ? randomRecipes : filteredRecipes) { recipe in
+                                RecipeCard(recipe: recipe, isHeartRed: self.isRecipeSaved(recipe), toggleHeart: {
+                                    if self.isRecipeSaved(recipe) {
+                                        self.savedRecipes.removeAll(where: { $0.id == recipe.id })
+                                    } else {
+                                        self.savedRecipes.append(recipe)
+                                    }
+                                })
+                            }
+                        }.buttonStyle(PlainButtonStyle())
+                    }
+                }.background(Image("background").resizable().scaledToFill())
+                    .navigationTitle("Recipe Book")
+                    .toolbarBackground(.yellow, for: .navigationBar)
+                    .toolbarBackground(.visible, for: .navigationBar)
+                    .searchable(text: $searchText)
+            }
+        
     }
     
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
@@ -265,8 +276,7 @@ struct RecipeCard: View {
                     if(isHeartRed){
                         watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
                     else if (!isHeartRed){
-                        watchConnector.sendMessage(key: "addPref", value: recipe.title)
-                    }
+                        watchConnector.sendMessage(key: "addPref", value: recipe.title)}
                 }){
                     Image(systemName: isHeartRed ? "heart.fill" : "heart")
                         .foregroundColor(isHeartRed ? .red : .white)
