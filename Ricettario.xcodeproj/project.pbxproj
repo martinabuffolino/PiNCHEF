@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		4B8DCE1B2B8632A500EF09D5 /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */; };
+		4BB189ED2BA1DDFE00F5176F /* Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189EC2BA1DDFE00F5176F /* Homepage.swift */; };
+		4BB189EF2BA1DE6300F5176F /* RecipeCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189EE2BA1DE6300F5176F /* RecipeCategoryView.swift */; };
+		4BB189F12BA1DFE100F5176F /* InstructionsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189F02BA1DFE100F5176F /* InstructionsPopover.swift */; };
+		4BB189F32BA1E05D00F5176F /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189F22BA1E05D00F5176F /* RecipeDetailView.swift */; };
+		4BB189F52BA1E0B800F5176F /* RecipePropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189F42BA1E0B800F5176F /* RecipePropertyView.swift */; };
+		4BB189F72BA1E0FE00F5176F /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189F62BA1E0FE00F5176F /* RecipeView.swift */; };
+		4BB189F92BA1E12B00F5176F /* SavedRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189F82BA1E12B00F5176F /* SavedRecipesView.swift */; };
+		4BB189FB2BA1E15000F5176F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189FA2BA1E15000F5176F /* CategoryButton.swift */; };
+		4BB189FD2BA1E5EB00F5176F /* SavedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB189FC2BA1E5EB00F5176F /* SavedManager.swift */; };
 		5B15619A2B986FD00064D5C5 /* EndRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1561992B986FD00064D5C5 /* EndRecipeView.swift */; };
 		5B5620B32B8C9EF300521E51 /* RicettarioWApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */; };
 		5B5620B52B8C9EF300521E51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5620B42B8C9EF300521E51 /* ContentView.swift */; };
@@ -52,6 +61,15 @@
 
 /* Begin PBXFileReference section */
 		4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBook.swift; sourceTree = "<group>"; };
+		4BB189EC2BA1DDFE00F5176F /* Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepage.swift; sourceTree = "<group>"; };
+		4BB189EE2BA1DE6300F5176F /* RecipeCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCategoryView.swift; sourceTree = "<group>"; };
+		4BB189F02BA1DFE100F5176F /* InstructionsPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsPopover.swift; sourceTree = "<group>"; };
+		4BB189F22BA1E05D00F5176F /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		4BB189F42BA1E0B800F5176F /* RecipePropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePropertyView.swift; sourceTree = "<group>"; };
+		4BB189F62BA1E0FE00F5176F /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		4BB189F82BA1E12B00F5176F /* SavedRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesView.swift; sourceTree = "<group>"; };
+		4BB189FA2BA1E15000F5176F /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		4BB189FC2BA1E5EB00F5176F /* SavedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedManager.swift; sourceTree = "<group>"; };
 		5B1561992B986FD00064D5C5 /* EndRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndRecipeView.swift; sourceTree = "<group>"; };
 		5B5620B02B8C9EF300521E51 /* RicettarioW Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RicettarioW Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RicettarioWApp.swift; sourceTree = "<group>"; };
@@ -145,6 +163,15 @@
 				5BA5DF1E2B83A46F004D19ED /* Ricettario.entitlements */,
 				5BA5DF1F2B83A46F004D19ED /* Preview Content */,
 				4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */,
+				4BB189EC2BA1DDFE00F5176F /* Homepage.swift */,
+				4BB189EE2BA1DE6300F5176F /* RecipeCategoryView.swift */,
+				4BB189F02BA1DFE100F5176F /* InstructionsPopover.swift */,
+				4BB189F22BA1E05D00F5176F /* RecipeDetailView.swift */,
+				4BB189F42BA1E0B800F5176F /* RecipePropertyView.swift */,
+				4BB189F62BA1E0FE00F5176F /* RecipeView.swift */,
+				4BB189F82BA1E12B00F5176F /* SavedRecipesView.swift */,
+				4BB189FA2BA1E15000F5176F /* CategoryButton.swift */,
+				4BB189FC2BA1E5EB00F5176F /* SavedManager.swift */,
 			);
 			path = Ricettario;
 			sourceTree = "<group>";
@@ -274,8 +301,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B8DCE1B2B8632A500EF09D5 /* RecipeBook.swift in Sources */,
+				4BB189EF2BA1DE6300F5176F /* RecipeCategoryView.swift in Sources */,
 				5B5620C72B8C9F7C00521E51 /* WatchConnector.swift in Sources */,
+				4BB189FD2BA1E5EB00F5176F /* SavedManager.swift in Sources */,
 				5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */,
+				4BB189F72BA1E0FE00F5176F /* RecipeView.swift in Sources */,
+				4BB189F32BA1E05D00F5176F /* RecipeDetailView.swift in Sources */,
+				4BB189FB2BA1E15000F5176F /* CategoryButton.swift in Sources */,
+				4BB189F92BA1E12B00F5176F /* SavedRecipesView.swift in Sources */,
+				4BB189F12BA1DFE100F5176F /* InstructionsPopover.swift in Sources */,
+				4BB189F52BA1E0B800F5176F /* RecipePropertyView.swift in Sources */,
+				4BB189ED2BA1DDFE00F5176F /* Homepage.swift in Sources */,
 				5BA5DF192B83A46D004D19ED /* RicettarioApp.swift in Sources */,
 				5B5620C42B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */,
 			);
@@ -300,18 +336,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = C3AS3822AF;
+				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = adriadamo.Ricettario;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = gabrie.Ricettario;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = adriadamo.Ricettario.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -330,18 +366,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = C3AS3822AF;
+				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = adriadamo.Ricettario;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = gabrie.Ricettario;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = demicco.Ricettario.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -477,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = C3AS3822AF;
+				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -496,7 +532,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = adriadamo.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -516,7 +552,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = C3AS3822AF;
+				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -535,7 +571,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = adriadamo.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
