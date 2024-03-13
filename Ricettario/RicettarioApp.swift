@@ -1,10 +1,3 @@
-//
-//  RicettarioApp.swift
-//  Ricettario
-//
-//  Created by Marta on 19/02/24.
-//
-
 import SwiftUI
 
 @main

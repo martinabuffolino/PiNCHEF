@@ -53,7 +53,7 @@ struct Recipe: Identifiable, Codable {
         }
 }
 
-var allRecipes: [Recipe] = appetizersRecipes + first_cousesRecipes + second_coursesRecipes + dessertsRecipes
+var allRecipes: [Recipe] = appetizersRecipes + first_coursesRecipes + second_coursesRecipes + dessertsRecipes
 
 var appetizersRecipes: [Recipe] = [
     Recipe(title: "French Fries",
@@ -103,31 +103,33 @@ var appetizersRecipes: [Recipe] = [
 
 ]
 
-var first_cousesRecipes: [Recipe] = [
-    Recipe(title: "Tomato Sauce",
-           ingredients: [
-                Ingredient(name: "Canned whole tomatoes", quantity: "28 oz"),
-                Ingredient(name: "Olive oil", quantity: "2 tbsp"),
-                Ingredient(name: "Onion, chopped", quantity: "1"),
-                Ingredient(name: "Garlic, minced", quantity: "2 cloves"),
-                Ingredient(name: "Dried oregano", quantity: "1 tsp"),
-                Ingredient(name: "Salt", quantity: "1/2 tsp"),
-                Ingredient(name: "Black pepper", quantity: "1/4 tsp"),
-           ],
-           instructions: [
-                Step(type: "🔥", text: "Heat olive oil over medium heat."),
-                Step(type: "🫳", text: "Add onion and garlic and cook about 5 minutes."),
-                Step(type: "🫳", text: "Pour in canned tomatoes."),
-                Step(type: "🫳", text: "Add dried oregano, salt, and black pepper."),
-                Step(type: "🔥", text: "Cook for 20-25 minutes."),
-           ],
-           imageName: "tomato",
-           description: "A quick and easy tomato sauce made with canned tomatoes, onion, garlic, and herbs.",
-           isHeartRed: false,
-           difficulty: .easy,
-           time: 30,
-           cost: .low,
-           servingSize: 4),
+var first_coursesRecipes: [Recipe] = [
+    Recipe(title: "Matriciana Spaghetti",
+                   ingredients: [
+                        Ingredient(name: "Spaghetti", quantity: " 320 g"),
+                        Ingredient(name: "Peeled tomatoes", quantity: "400 g"),
+                        Ingredient(name: "Guanciale", quantity: "150 g"),
+                        Ingredient(name: "Pecorino Romano", quantity: "75 g"),
+                        Ingredient(name: "Dried oregano", quantity: "1 tsp"),
+                        Ingredient(name: "Salt", quantity: "1/2 tsp"),
+                        Ingredient(name: "Chilli pepper", quantity: "1"),
+                   ],
+                   instructions: [
+                        Step(type: "🔥", text: "Boil water for the pasta."),
+                        Step(type: "🔪", text: "Cut the guanciale and brown it in a pan."),
+                        Step(type: "🫳", text: "Add the chilli pepper and the peeled tomatoes. "),
+                        Step(type: "🔥", text: "Cook the sauce for 10 minutes."),
+                        Step(type: "🔥", text: "Cook the spaghetti."),
+                        Step(type: "🫳", text: "Add the guanciale to the sauce."),
+                        Step(type: "🫳", text: "Add the grated Pecorino Romano cheese and stir."),
+                   ],
+                   imageName: "matriciana",
+                   description: "Matriciana Spaghetti is a true staple of Latium cuisine.",
+                   isHeartRed: false,
+                   difficulty: .easy,
+                   time: 25,
+                   cost: .low,
+                   servingSize: 4),
     
     Recipe(title: "Spaghetti with Tuna",
            ingredients: [

@@ -24,7 +24,7 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             CategoryButton(title: "Appetizers", imageName: "appetizers", destination: RecipeCategoryView(isHeartRed: $isHeartRed, recipeManager: recipeManager, recipes: appetizersRecipes, category: .appetizers))
-                            CategoryButton(title: "First Courses", imageName: "first_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, recipeManager: recipeManager, recipes: appetizersRecipes, category: .appetizers))
+                            CategoryButton(title: "First Courses", imageName: "first_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, recipeManager: recipeManager, recipes: first_coursesRecipes, category: .first_courses))
                             CategoryButton(title: "Second Courses", imageName: "second_course", destination: RecipeCategoryView(isHeartRed: $isHeartRed, recipeManager: recipeManager, recipes: second_coursesRecipes, category: .second_courses))
                             CategoryButton(title: "Desserts", imageName: "desserts", destination: RecipeCategoryView(isHeartRed: $isHeartRed, recipeManager: recipeManager, recipes: dessertsRecipes, category: .desserts))
                         }.padding()
@@ -48,7 +48,9 @@ struct HomeView: View {
                 .toolbarBackground(.yellow, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .searchable(text: $searchText)
+
         }
+        .tint(.black)
     }
     
     func isRecipeSaved(_ recipe: Recipe) -> Bool {
