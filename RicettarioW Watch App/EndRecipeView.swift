@@ -9,8 +9,6 @@ import SwiftUI
 
 struct EndRecipeView: View {
     
-    var imageRecipe: Image
-    
     @State private var rotationAngle: Double = 0
     
     var body: some View {
@@ -24,27 +22,14 @@ struct EndRecipeView: View {
             
             VStack {
                 
-                
                 Text("Preparation Completed!")
                     .font(.system(size: 14))
                     .bold()
-                
-                // TODO: aggiungere il passaggio degli stessi asset anche su watch
-//                imageRecipe
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 170)
-//                    .clipShape(Circle())
-//                    .clipped()
-//                    .overlay(){Circle().fill(.clear).stroke(Color.white,lineWidth: 8)}
-//                    .shadow(radius: 1)
-//                    .padding()
-            
 
                 Text("🧑🏼‍🍳")
                     .font(.system(size: 80))
                 
-                Text("Tap to turn to menu")
+                Text("Tap fingers to turn to menu")
                     .opacity(0.8)
                     .font(.system(size: 11))
                     .padding(.bottom,0)
@@ -58,5 +43,5 @@ struct EndRecipeView: View {
 }
 
 #Preview {
-    EndRecipeView(imageRecipe: Image("def"))
+    EndRecipeView()
 }

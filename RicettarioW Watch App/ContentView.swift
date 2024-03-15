@@ -10,6 +10,8 @@ struct ContentView: View {
     
     @State var scrollAmount = 0.0
     
+    @State var endRecipe = false
+    
     @State var savedRec: [Recipe] = []
     
     @State var timer: Timer? // Aggiunto per gestire il timer
@@ -17,105 +19,88 @@ struct ContentView: View {
     @State private var timerRemaining: Int = 0
     
     var body: some View {
-        VStack(alignment: .leading) { 
-            ZStack(alignment: .topLeading) { // Usa ZStack per sovrapporre elementi
-            // Timer circolare posizionato in alto a sinistra
-            if timerRemaining > 0 {
-                VStack {
-                    Circle()
-                        .stroke(lineWidth: 5)
-                        .opacity(0.3)
-                        .foregroundColor(Color.gray)
-
-                    Circle()
-                        .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
-                        .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
-                        .foregroundColor(Color.green)
-                        .rotationEffect(Angle(degrees: 270))
-                        .animation(.linear, value: timerRemaining)
-
-                    Text("\(timerRemaining)s")
-                        .font(.caption)
-                }
-                .frame(width: 50, height: 50)
-                .padding([.top, .leading], 8)
-            }
+        VStack(alignment: .leading) {
             
             if currentRecipe.title == ""{
+        
                 if !savedRec.isEmpty{
-                    Text("Favorites")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
-                        .padding(.top, 20)
-//                        .ignoresSafeArea()
-                    ScrollView(.vertical) {
-                        // Utilizziamo RecipeCard per visualizzare la ricetta
-                        ForEach(savedRec) { recipe in
-                            Button(action: {
-                                currentRecipe = recipe
-                                
-                            }) {
-                                HStack{
-                                    Image(systemName: "heart.fill")
-                                        .foregroundColor(.red)
-                                    Text(recipe.title)
-                                        .lineLimit(1)
-                                    Spacer()
+                    
+                    VStack(alignment: .leading){
+                        Text("Favorites")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                            .padding(.top, 20)
+                        
+                        ScrollView(.vertical) {
+                            // Utilizziamo RecipeCard per visualizzare la ricetta
+                            ForEach(savedRec) { recipe in
+                                Button(action: {currentRecipe = recipe}) {
+                                    HStack{
+                                        Image(systemName: "heart.fill")
+                                            .foregroundColor(.red)
+                                        
+                                        Text(recipe.title)
+                                            .lineLimit(1)
+                                        Spacer()
+                                    }
                                 }
+                                
                             }
-                            
                         }
                     }
+                    .padding(.top, 0)
+                    .ignoresSafeArea()
                     
                 }
                 else{
-                    VStack{
-                        Spacer(minLength: 60)
-                        
-                        Image(systemName: "heart.slash.fill")
-                        Text("You have no recipes saved")
-                            .multilineTextAlignment(.center)
-                            .font(.headline)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.white, lineWidth: 1)
-                                    .frame(width: 130, height: 60)
-                            )
-                        VStack{
-                            Spacer()
-                            Text("Save or start cooking recipes from your iPhone!")
-                                .multilineTextAlignment(.center)
-                                .font(.footnote)
-                            Spacer()
-                        }
-                    }
-                    
-                    
+                    NoRecipeView()
                 }
-                
-                
-            }else{
+            }
+            else{
                 
                 if currentInstruction < 0{
                     StartW()
                 }
-                else{
+                else if endRecipe == false{
                     VStack{
-                        Text("Timer, \(currentRecipe.title)")
-                            .padding(.top, 0)
                         
-                        Divider()
+                        // Timer circolare posizionato in alto a sinistra
+                        if timerRemaining > 0 {
+                            VStack {
+                                Circle()
+                                    .stroke(lineWidth: 5)
+                                    .opacity(0.3)
+                                    .foregroundColor(Color.gray)
+
+                                Circle()
+                                    .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
+                                    .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
+                                    .foregroundColor(Color.green)
+                                    .rotationEffect(Angle(degrees: 270))
+                                    .animation(.linear, value: timerRemaining)
+
+                                Text("\(timerRemaining)s")
+                                    .font(.caption)
+                            }
+                            .frame(width: 50, height: 50)
+                            .padding([.top, .leading], 8)
+                            
+                            Divider()
+                        }
+            
                         
                         VStack(alignment: .leading) {
-                            Text("🔥")
-                                .font(.system(size: 50))
-                            
-                            Text("10 min")
-                                .bold()
-                                .font(.system(size: 20))
-                            
+                            // Controlla se la ricetta è terminata
                             if currentInstruction < currentRecipe.instructions.count{
+                                Text(currentRecipe.instructions[currentInstruction].type)
+                                    .font(.system(size: 50))
+                                
+                                // TODO: cambia
+                                Text("10 min")
+                                    .bold()
+                                    .font(.system(size: 20))
+                                
                                 Text(currentRecipe.instructions[currentInstruction].text)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .opacity(0.5)
@@ -124,6 +109,7 @@ struct ContentView: View {
                             }
                             else{
                                 Text("Fine Ricetta")
+                                    .onAppear(){endRecipe = true}
                             }
                             
                         }
@@ -131,7 +117,11 @@ struct ContentView: View {
                     }
                     
                 }
+                else{
+                    EndRecipeView()
+                }
                 
+                // Logica legata alla rotazione della Crown
                 Text("")
                     .focusable(true)
                     .digitalCrownRotation($scrollAmount, from: -1.0, through: 1.0, by: 0.1, sensitivity: .low, isContinuous: false)
@@ -139,40 +129,61 @@ struct ContentView: View {
                         if Int(scrollAmount) == 1{
                             print("avanti")
                             currentInstruction += 1
-                            checkAndStartTimerForCurrentStep()
+                
                             scrollAmount = 0
+                            
+                            // Se vado avanti dopo il termine della ricetta torna alla home
+                            if endRecipe{
+                                endRecipe = false
+                                
+                                currentRecipe = Recipe(title: "", ingredients: [], instructions: [], imageName: "", description: "", isHeartRed: false, difficulty: .easy, time: 0, cost: .low, servingSize: 0)
+                                
+                                currentInstruction = -1
+                            }
+                            
+                            checkAndStartTimerForCurrentStep()
                         }
                         else if Int(scrollAmount) == -1{
                             print("indietro")
                             currentInstruction -= 1
-                            checkAndStartTimerForCurrentStep()
+                            if currentInstruction == -2{
+                                currentInstruction = -1
+                                
+                                // Torna alla schermata inziale
+                                currentRecipe = Recipe(title: "", ingredients: [], instructions: [], imageName: "", description: "", isHeartRed: false, difficulty: .easy, time: 0, cost: .low, servingSize: 0)
+                            }
                             scrollAmount = 0
+                            
+                            endRecipe = false
+                            
+                            checkAndStartTimerForCurrentStep()
+                            
                         }
                         
                     }
                 
-                
             }
             
         }
-        }.ignoresSafeArea()
-            .onChange(of: watchConnector.recipeTitle) {
-                if let recipe = allRecipes.first(where: { $0.title == watchConnector.recipeTitle}) {
-                    currentRecipe = recipe
-                    currentInstruction = -1
-                }
+        .onChange(of: watchConnector.recipeTitle) {
+            if let recipe = allRecipes.first(where: { $0.title == watchConnector.recipeTitle}) {
+                currentRecipe = recipe
+                currentInstruction = -1
             }
-            .onChange(of: watchConnector.addPrefTitle) {
-                if let recipe = allRecipes.first(where: { $0.title == watchConnector.addPrefTitle}) {
-                    savedRec.append(recipe)
-                }
+        }
+        .onChange(of: watchConnector.addPrefTitle) {
+            if let recipe = allRecipes.first(where: { $0.title == watchConnector.addPrefTitle}) {
+                savedRec.append(recipe)
             }
-            .onChange(of: watchConnector.rmvPrefTitle) {
-                savedRec.removeAll { $0.title ==  watchConnector.rmvPrefTitle}
-            }
+        }
+        .onChange(of: watchConnector.rmvPrefTitle) {
+            savedRec.removeAll { $0.title ==  watchConnector.rmvPrefTitle}
+        }
         
         
     }
+    
+    
     func checkAndStartTimerForCurrentStep() {
         //        timer?.invalidate() // Ferma il timer precedente se attivo
         if currentInstruction >= 0 && currentInstruction < currentRecipe.instructions.count {
@@ -190,6 +201,8 @@ struct ContentView: View {
             }
         }
     }
+    
+    
 }
     
 

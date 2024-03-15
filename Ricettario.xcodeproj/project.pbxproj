@@ -31,6 +31,7 @@
 		5BA5DF1B2B83A46D004D19ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1A2B83A46D004D19ED /* ContentView.swift */; };
 		5BA5DF1D2B83A46F004D19ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */; };
 		5BA5DF212B83A46F004D19ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */; };
+		5BAD78722BA4CA8900A8127F /* NoRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD78712BA4CA8900A8127F /* NoRecipeView.swift */; };
 		5BD56E982B95BF9E00AA63CA /* StartW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD56E972B95BF9E00AA63CA /* StartW.swift */; };
 		5BD56E9C2B95C05300AA63CA /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8DCE1A2B8632A500EF09D5 /* RecipeBook.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		5BA5DF1C2B83A46F004D19ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BA5DF1E2B83A46F004D19ED /* Ricettario.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ricettario.entitlements; sourceTree = "<group>"; };
 		5BA5DF202B83A46F004D19ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5BAD78712BA4CA8900A8127F /* NoRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRecipeView.swift; sourceTree = "<group>"; };
 		5BD56E972B95BF9E00AA63CA /* StartW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartW.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 			children = (
 				5B5620B22B8C9EF300521E51 /* RicettarioWApp.swift */,
 				5B5620B42B8C9EF300521E51 /* ContentView.swift */,
+				5BAD78712BA4CA8900A8127F /* NoRecipeView.swift */,
 				5BD56E972B95BF9E00AA63CA /* StartW.swift */,
 				5B1561992B986FD00064D5C5 /* EndRecipeView.swift */,
 				5B5620B62B8C9EF500521E51 /* Assets.xcassets */,
@@ -291,6 +294,7 @@
 				5B5620C82B8C9F7C00521E51 /* WatchConnector.swift in Sources */,
 				5B15619A2B986FD00064D5C5 /* EndRecipeView.swift in Sources */,
 				5B5620B32B8C9EF300521E51 /* RicettarioWApp.swift in Sources */,
+				5BAD78722BA4CA8900A8127F /* NoRecipeView.swift in Sources */,
 				5BD56E982B95BF9E00AA63CA /* StartW.swift in Sources */,
 				5B5620C52B8C9F5100521E51 /* ConnectivityProvider.swift in Sources */,
 			);
@@ -336,18 +340,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = gabrie.Ricettario;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = carmine.Ricettario;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = carmine.Ricettario.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -366,18 +370,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RicettarioW Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = RicettarioW;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = gabrie.Ricettario;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = carmine.Ricettario;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = carmine.Ricettario.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -513,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -532,7 +536,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = carmine.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -552,7 +556,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Ricettario/Preview Content\"";
-				DEVELOPMENT_TEAM = Y3QKQHD5ZK;
+				DEVELOPMENT_TEAM = K77YAS4MZU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -571,7 +575,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = gabrie.Ricettario;
+				PRODUCT_BUNDLE_IDENTIFIER = carmine.Ricettario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
