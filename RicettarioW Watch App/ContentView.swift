@@ -12,11 +12,18 @@ struct ContentView: View {
     
     @State var endRecipe = false
     
-    @State var savedRec: [Recipe] = []
+    @State var savedRec: [Recipe] = allRecipes
+//    @State var savedRec: [Recipe] = []
+
     
     @State var timer: Timer? // Aggiunto per gestire il timer
+    @State var isTimerRunning = false
     @State private var timerDuration: Int = 0
     @State private var timerRemaining: Int = 0
+    
+    @State private var endTimerView = false
+    
+    @State var stepWithTimer: Step = Step(type: "", text: "")
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,6 +38,7 @@ struct ContentView: View {
                             .fontWeight(.bold)
                             .multilineTextAlignment(.leading)
                             .padding(.top, 20)
+                            .padding(.leading, 4)
                         
                         ScrollView(.vertical) {
                             // Utilizziamo RecipeCard per visualizzare la ricetta
@@ -66,50 +74,74 @@ struct ContentView: View {
                     VStack{
                         
                         // Timer circolare posizionato in alto a sinistra
-                        if timerRemaining > 0 {
-                            VStack {
-                                Circle()
-                                    .stroke(lineWidth: 5)
-                                    .opacity(0.3)
-                                    .foregroundColor(Color.gray)
+                        VStack(alignment: .leading) {
+                            ZStack {
+                                    Circle()
+                                        .stroke(lineWidth: 4)
+                                        .opacity(0.3)
+                                        .foregroundColor(Color.gray)
 
-                                Circle()
-                                    .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
-                                    .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
-                                    .foregroundColor(Color.green)
-                                    .rotationEffect(Angle(degrees: 270))
-                                    .animation(.linear, value: timerRemaining)
+                                    Circle()
+                                        .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
+                                        .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                                        .foregroundColor(Color.green)
+                                        .rotationEffect(Angle(degrees: 270))
+                                        .animation(.linear, value: timerRemaining)
 
-                                Text("\(timerRemaining)s")
-                                    .font(.caption)
-                            }
-                            .frame(width: 50, height: 50)
-                            .padding([.top, .leading], 8)
+//                                    Text("\(timerRemaining)s")
+//                                        .font(.caption)
+                                    Text("\(stepWithTimer.type)")
+                                        .font(.caption)
+                                }
+                                .frame(width: 30, height: 30)
+                                .padding( .leading, 8)
+                                .padding(.bottom, 2)
                             
                             Divider()
                         }
-            
+                        .opacity(timerRemaining > 0 ? 1 : 0)
+                            
                         
                         VStack(alignment: .leading) {
                             // Controlla se la ricetta è terminata
                             if currentInstruction < currentRecipe.instructions.count{
                                 Text(currentRecipe.instructions[currentInstruction].type)
                                     .font(.system(size: 50))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                // TODO: cambia
-                                Text("10 min")
+                                // TODO: rivedere grafica
+                                Text("\((currentRecipe.instructions[currentInstruction].timer ?? 0) / 60) min")
                                     .bold()
                                     .font(.system(size: 20))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    
                                 
-                                Text(currentRecipe.instructions[currentInstruction].text)
+                                Text("\(currentRecipe.instructions[currentInstruction].text)\n\n\n")
                                     .fixedSize(horizontal: false, vertical: true)
                                     .opacity(0.5)
-                                    .lineLimit(4) // Numero massimo di linee che vuoi mostrare
-                                    .truncationMode(.tail)
+                                    .lineLimit(4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    
                             }
                             else{
-                                Text("Fine Ricetta")
-                                    .onAppear(){endRecipe = true}
+                                // TODO: mettere 2 bottoni: 1 che porti il timer a 0 e faccia anticipare la fine della ricetta e uno che faccia rivisualizzare il timer
+                                
+                                // Fine Ricetta
+                                Text("")
+                                    .onAppear(){
+                                        // Se termina la ricetta ma c'è il timer in corso mostra solo quello
+                                        if isTimerRunning{
+                                            endTimerView = true
+                                        }
+                                        else{
+                                            endRecipe = true
+                                        }
+                                    }
+                                    .onChange(of: endTimerView){
+                                        if !isTimerRunning{
+                                            endRecipe = true
+                                        }
+                                    }
                             }
                             
                         }
@@ -140,7 +172,7 @@ struct ContentView: View {
                                 
                                 currentInstruction = -1
                             }
-                            
+                        
                             checkAndStartTimerForCurrentStep()
                         }
                         else if Int(scrollAmount) == -1{
@@ -156,7 +188,6 @@ struct ContentView: View {
                             
                             endRecipe = false
                             
-                            checkAndStartTimerForCurrentStep()
                             
                         }
                         
@@ -165,6 +196,58 @@ struct ContentView: View {
             }
             
         }
+        // Schermata di fine timer
+        .sheet(isPresented: $endTimerView, content: {
+            VStack {
+                
+                HStack {
+                    Spacer()
+                    
+                    Text(stepWithTimer.type)
+                        .font(.system(size: 65))
+                    
+                    Spacer()
+                    
+                    ZStack {
+                            Circle()
+                                .stroke(lineWidth: 8)
+                                .opacity(0.3)
+                                .foregroundColor(Color.gray)
+
+                            Circle()
+                                .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
+                                .stroke(style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
+                                .foregroundColor(Color.green)
+                                .rotationEffect(Angle(degrees: 270))
+                                .animation(.linear, value: timerRemaining)
+
+                            if timerRemaining > 60{
+                                Text("\(timerRemaining / 60)m")
+                                .bold()
+                                .font(.system(size: 24))
+                            }
+                            else{
+                                Text("\(timerRemaining)s")
+                                .bold()
+                                .font(.system(size: 24))
+                            }
+                            
+                        }
+                    .frame(width: 60, height: 60)
+                    
+                    Spacer()
+                }
+                .padding(.bottom, 4)
+                
+                Text("\(stepWithTimer.text)\n\n\n")
+                    .lineLimit(4)
+                    .opacity(0.6)
+                    .onAppear(){
+                        WKInterfaceDevice.current().play(.notification)
+                    }
+            }
+        })
+        
         .onChange(of: watchConnector.recipeTitle) {
             if let recipe = allRecipes.first(where: { $0.title == watchConnector.recipeTitle}) {
                 currentRecipe = recipe
@@ -184,23 +267,44 @@ struct ContentView: View {
     }
     
     
+
     func checkAndStartTimerForCurrentStep() {
-        //        timer?.invalidate() // Ferma il timer precedente se attivo
-        if currentInstruction >= 0 && currentInstruction < currentRecipe.instructions.count {
-            let step = currentRecipe.instructions[currentInstruction]
+        guard !isTimerRunning else {
+            return // Se il timer è già in esecuzione, esce dalla funzione
+        }
+
+        if currentInstruction >= 1 && currentInstruction < currentRecipe.instructions.count {
+            
+            // Se lo step precedente aveva il timer lo avvia
+            let step = currentRecipe.instructions[currentInstruction-1]
             if let stepTimer = step.timer {
+                stepWithTimer = step
                 timerDuration = stepTimer
                 timerRemaining = stepTimer
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if timerRemaining > 0 {
                         timerRemaining -= 1
+                        isTimerRunning = true
+                        // Imposta la variabile di blocco su true quando il timer viene avviato
+                        
+                        // Quando mancano 10 secondi si visualizza la schermata
+                        if timerRemaining <= 10{
+                            endTimerView = true
+                        }
+                        
                     } else {
                         timer?.invalidate()
+                        isTimerRunning = false 
+                        // Imposta la variabile di blocco su false quando il timer termina
+                        print("timer end")
+                        
+                        endTimerView = false
                     }
                 }
             }
         }
     }
+
     
     
 }

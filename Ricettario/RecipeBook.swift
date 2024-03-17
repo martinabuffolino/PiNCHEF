@@ -65,9 +65,9 @@ var appetizersRecipes: [Recipe] = [
                 Ingredient(name: "Paprika (optional)", quantity: "1/2 tsp"),
            ],
            instructions: [
-                Step(type: "🔪", text: "Peel and cut the potatoes ."),
+                Step(type: "🔪", text: "Peel and cut the potatoes."),
                 Step(type: "🔥", text: "Heat vegetable oil to 160°C."),
-                Step(type: "🔥", text: "Fry for 5-6 minutes.", timer: 60),
+                Step(type: "🔥", text: "Fry for 5-6 minutes.", timer: 80),
                 Step(type: "🥣", text: "Season with salt and our favorite dipping sauce."),
            ],
            imageName: "fries",
