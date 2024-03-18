@@ -4,7 +4,7 @@ import SwiftUI
 // Recipe full page
 struct RecipeDetailView: View {
     @StateObject private var watchConnector: WatchConnector = WatchConnector()
-   
+    
     @State var isInstructionsSheetPresented = false
     @State var selectedRecipe: Recipe? = nil
     
@@ -45,9 +45,13 @@ struct RecipeDetailView: View {
                     VStack{
                         HStack{
                             Spacer()
-                            Button(action: {
+                            Button(action:  {
                                 toggleHeart()
-                            }) {
+                                if(isHeartRed){
+                                    watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
+                                else if (!isHeartRed){
+                                    watchConnector.sendMessage(key: "addPref", value: recipe.title)}
+                            }){
                                 Image(systemName: isHeartRed ? "heart.fill" : "heart")
                                     .foregroundColor(isHeartRed ? .red : .white)
                                     .padding(8)
@@ -155,7 +159,7 @@ struct RecipeDetailView: View {
                             }
                         }
                     }
-                                                
+                    
                     Button(action: {
                         watchConnector.sendMessage(key: "testo", value: recipe.title)
                     }) {

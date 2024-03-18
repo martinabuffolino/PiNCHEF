@@ -1,10 +1,3 @@
-//
-//  WatchConnector.swift
-//  Ricettario
-//
-//  Created by Carmine De Micco on 21/02/24.
-//
-
 import Foundation
 import WatchConnectivity
 import Combine
