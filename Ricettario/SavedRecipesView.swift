@@ -6,7 +6,7 @@ struct SavedRecipesView: View {
     @StateObject private var watchConnector: WatchConnector = WatchConnector()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack {
                     HStack {

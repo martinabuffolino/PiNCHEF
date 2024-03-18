@@ -146,8 +146,10 @@ var first_coursesRecipes: [Recipe] = [
            instructions: [
                 Step(type: "🔥", text: "Cook spaghetti according to package instructions."),
                 Step(type: "🔥", text: "Heat olive oil over medium heat."),
-                Step(type: "🫳", text: "Add garlic and cook about 1 minute.", timer: 60),
-                Step(type: "🫳", text: "Add cherry tomatoes and cook about 2 minutes.", timer: 120),
+                Step(type: "🫳", text: "Add garlic."),
+                Step(type: "🔥", text: "Cook about 1 minute.", timer: 60),
+                Step(type: "🫳", text: "Add cherry tomatoes."),
+                Step(type: "🔥", text: "Cook about 2 minutes.",timer: 120 ),
                 Step(type: "🫳", text: "Add canned tuna."),
                 Step(type: "🥣", text: "Season with salt, black pepper, and red pepper flakes."),
                 Step(type: "🫳", text: "Add cooked spaghetti."),

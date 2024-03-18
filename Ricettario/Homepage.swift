@@ -48,9 +48,10 @@ struct HomeView: View {
                                         self.recipeManager.addRecipe(recipe)
                                     }
                                 })
+                                
                             }
                         }
-                        .buttonStyle(PlainButtonStyle())
+//                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }

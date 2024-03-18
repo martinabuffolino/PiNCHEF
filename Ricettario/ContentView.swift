@@ -15,7 +15,7 @@ struct ContentView: View {
     @StateObject private var watchConnector:WatchConnector = WatchConnector()
     
     var body: some View {
-        NavigationView {
+        
             TabView {
                 HomeView(isHeartRed: $isHeartRed
                          , randomRecipes: $randomRecipes, allRecipes: allRecipes, recipeManager: recipeManager)
@@ -28,7 +28,7 @@ struct ContentView: View {
                     }
             }
             .accentColor(.yellow)
-        }
+        
         .onAppear {
             self.randomRecipes = self.getRandomRecipes(numberOfRecipes: 2)
         }

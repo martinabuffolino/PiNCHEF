@@ -1,6 +1,54 @@
 import SwiftUI
 
 
+struct CookingTimer: Identifiable {
+    let id = UUID()
+    var timer: Timer?
+    var timerDuration: Int
+    var timerRemaining: Int
+    var isTimerRunning = false
+    let step: Step
+}
+
+
+//class CookingClass: ObservableObject {
+////    var timer: Timer
+//    @Published var cookingTimers: [CookingTimer] = [CookingTimer]()
+////    @Published var timerDuration: Int
+////    @Published var timerRemaining: Int
+////    @Published var isTimerRunning = false
+//    
+//    func addTimer(timerDuration: Int, timerRemaining: Int) {
+//        let cookingTimer = CookingTimer(timerDuration: timerDuration, timerRemaining: timerRemaining)
+//        cookingTimers.append(cookingTimer)
+//    }
+//    
+//    func startTimer() {
+//       var _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+//           if self.timerRemaining > 0 {
+//                self.timerRemaining -= 1
+//               self.isTimerRunning = true
+//                // Imposta la variabile di blocco su true quando il timer viene avviato
+//                
+//                // Quando mancano 10 secondi si visualizza la schermata
+//               if self.timerRemaining <= 10{
+////                    endTimerView = true
+//                }
+//                
+//            } else {
+//                timer.invalidate()
+//                self.isTimerRunning = false
+//                // Imposta la variabile di blocco su false quando il timer termina
+//                print("timer end")
+//                
+////                endTimerView = false
+//            }
+//        }
+//        
+//    }
+//    
+//}
+
 struct ContentView: View {
     @StateObject private var watchConnector: WatchConnector = WatchConnector()
     
@@ -12,9 +60,13 @@ struct ContentView: View {
     
     @State var endRecipe = false
     
-    @State var savedRec: [Recipe] = allRecipes
-//    @State var savedRec: [Recipe] = []
+//    @State var savedRec: [Recipe] = allRecipes
+    @State var savedRec: [Recipe] = []
 
+    
+    @State var cookingTimers = [CookingTimer]()
+    @State private var endTimerIdx: Int = -1
+    
     
     @State var timer: Timer? // Aggiunto per gestire il timer
     @State var isTimerRunning = false
@@ -75,32 +127,42 @@ struct ContentView: View {
                     VStack{
                         
                         // Timer circolare posizionato in alto a sinistra
-                        VStack(alignment: .leading) {
-                            ZStack {
-                                    Circle()
-                                        .stroke(lineWidth: 4)
-                                        .opacity(0.3)
-                                        .foregroundColor(Color.gray)
-
-                                    Circle()
-                                        .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
-                                        .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                                        .foregroundColor(Color.green)
-                                        .rotationEffect(Angle(degrees: 270))
-                                        .animation(.linear, value: timerRemaining)
-
-//                                    Text("\(timerRemaining)s")
-//                                        .font(.caption)
-                                    Text("\(stepWithTimer.type)")
-                                        .font(.caption)
-                                }
-                                .frame(width: 30, height: 30)
-                                .padding( .leading, 8)
-                                .padding(.bottom, 2)
+//                        VStack(alignment: .leading) {
                             
-                            Divider()
-                        }
-                        .opacity(timerRemaining > 0 ? 1 : 0)
+                            HStack {
+                                ForEach(cookingTimers) { timer in
+                                    ZStack {
+                                        Circle()
+                                            .stroke(lineWidth: 4)
+                                            .opacity(0.3)
+                                            .foregroundColor(Color.yellow)
+                                        
+                                        Circle()
+                                            .trim(from: 0, to: CGFloat(timer.timerRemaining) / CGFloat(timer.timerDuration))
+                                            .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                                            .foregroundColor(Color.yellow)
+                                            .foregroundColor(Color.yellow)
+                                            .rotationEffect(Angle(degrees: 270))
+                                            .animation(.linear, value: timer.timerRemaining)
+                                        
+                                        //                                    Text("\(timerRemaining)s")
+                                        //                                        .font(.caption)
+                                        //                                        Text("\(stepWithTimer.type)")
+                                        Text("\(timer.step.type)")
+                                            .font(.caption)
+                                    }
+                                    .frame(width: 30, height: 30)
+                                    .padding(.leading, 8)
+                                    .padding(.bottom, 2)
+                                    .opacity(timer.timerRemaining > 0 ? 1 : 0)
+                                    
+                                }
+                                Spacer()
+                                
+                            }
+//                        }
+//                        .opacity(timerRemaining > 0 ? 1 : 0)
+                        
             
                         Spacer()
                         
@@ -129,20 +191,33 @@ struct ContentView: View {
                                     
                                     
                                 }
-                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
                             else{
                                 VStack {
                                     Spacer()
                                     
-                                    Button(action: {endTimerView = true}) {
+                                    Button(action: {
+                                        for (idx, c) in cookingTimers.enumerated() {
+                                            if c.isTimerRunning {
+                                                endTimerIdx = idx
+                                                break
+                                            }
+                                        }
+                                        endTimerView = true
+                                    }) {
                                         Text("Timer")
                                             .bold()
                                     }
                                     
                                     Spacer()
                                     
-                                    Button(action: {timerRemaining = 1}) {
+                                    Button(action: {
+                                        for cookingTimer in cookingTimers {
+                                            cookingTimer.timer?.invalidate()
+                                        }
+                                        endRecipe = true
+                                    }) {
                                         Text("Finish Recipe")
                                             .bold()
                                     }
@@ -150,18 +225,23 @@ struct ContentView: View {
                                     Spacer()
                                     
                                 }
-                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .onAppear(){
                                     // Se termina la ricetta ma c'è il timer in corso mostra solo quello
-                                    if isTimerRunning{
-                                        endTimerView = true
-                                    }
-                                    else{
-                                        endRecipe = true
+                                    if endTimerIdx > -1 {
+                                        if cookingTimers[endTimerIdx].isTimerRunning{
+                                            endTimerView = true
+                                        } else{
+                                            endRecipe = true
+                                        }
                                     }
                                 }
                                 .onChange(of: endTimerView){
-                                    if !isTimerRunning{
+                                    if endTimerIdx > -1 {
+                                        if !cookingTimers[endTimerIdx].isTimerRunning{
+                                            endRecipe = true
+                                        }
+                                    } else {
                                         endRecipe = true
                                     }
                                 }
@@ -226,7 +306,7 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     
-                    Text(stepWithTimer.type)
+                    Text(cookingTimers[endTimerIdx].step.type)
                         .font(.system(size: 65))
                     
                     Spacer()
@@ -238,19 +318,19 @@ struct ContentView: View {
                                 .foregroundColor(Color.gray)
 
                             Circle()
-                                .trim(from: 0, to: CGFloat(timerRemaining) / CGFloat(timerDuration))
+                            .trim(from: 0, to: CGFloat(cookingTimers[endTimerIdx].timerRemaining) / CGFloat(cookingTimers[endTimerIdx].timerDuration))
                                 .stroke(style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
-                                .foregroundColor(Color.green)
+                                .foregroundColor(Color.yellow)
                                 .rotationEffect(Angle(degrees: 270))
-                                .animation(.linear, value: timerRemaining)
+                                .animation(.linear, value: cookingTimers[endTimerIdx].timerRemaining)
 
-                            if timerRemaining > 60{
-                                Text("\(timerRemaining / 60)m")
+                        if cookingTimers[endTimerIdx].timerRemaining > 60{
+                                Text("\(cookingTimers[endTimerIdx].timerRemaining / 60)m")
                                 .bold()
                                 .font(.system(size: 24))
                             }
                             else{
-                                Text("\(timerRemaining)s")
+                                Text("\(cookingTimers[endTimerIdx].timerRemaining)s")
                                 .bold()
                                 .font(.system(size: 24))
                             }
@@ -262,7 +342,7 @@ struct ContentView: View {
                 }
                 .padding(.bottom, 4)
                 
-                Text("\(stepWithTimer.text)\n\n\n")
+                Text("\(cookingTimers[endTimerIdx].step.text)\n\n\n")
                     .lineLimit(4)
                     .opacity(0.6)
                     .onAppear(){
@@ -301,29 +381,64 @@ struct ContentView: View {
             // Se lo step precedente aveva il timer lo avvia
             let step = currentRecipe.instructions[currentInstruction-1]
             if let stepTimer = step.timer {
-                stepWithTimer = step
-                timerDuration = stepTimer
-                timerRemaining = stepTimer
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    if timerRemaining > 0 {
-                        timerRemaining -= 1
-                        isTimerRunning = true
+                for cooking in cookingTimers {
+                    guard cooking.step.text != step.text else {
+                        return
+                    }
+                }
+                
+                let cookingTimer = CookingTimer(timerDuration: stepTimer, timerRemaining: stepTimer, step: step)
+                cookingTimers.append(cookingTimer)
+                let idx = cookingTimers.count - 1
+                
+                cookingTimers[idx].timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                    if cookingTimers[idx].timerRemaining > 0 {
+                        cookingTimers[idx].timerRemaining -= 1
+                        cookingTimers[idx].isTimerRunning = true
                         // Imposta la variabile di blocco su true quando il timer viene avviato
                         
                         // Quando mancano 10 secondi si visualizza la schermata
-                        if timerRemaining <= 10{
+                        if cookingTimers[idx].timerRemaining <= 10 {
+                            endTimerIdx = idx
                             endTimerView = true
                         }
                         
                     } else {
-                        timer?.invalidate()
-                        isTimerRunning = false 
+                        timer.invalidate()
+                        cookingTimers[idx].isTimerRunning = false
                         // Imposta la variabile di blocco su false quando il timer termina
                         print("timer end")
+//                        endTimerIdx = -1
                         
                         endTimerView = false
                     }
                 }
+                
+                
+                
+//                stepWithTimer = step
+//                timerDuration = stepTimer
+//                timerRemaining = stepTimer
+//                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+//                    if timerRemaining > 0 {
+//                        timerRemaining -= 1
+//                        isTimerRunning = true
+//                        // Imposta la variabile di blocco su true quando il timer viene avviato
+//                        
+//                        // Quando mancano 10 secondi si visualizza la schermata
+//                        if timerRemaining <= 10{
+//                            endTimerView = true
+//                        }
+//                        
+//                    } else {
+//                        timer?.invalidate()
+//                        isTimerRunning = false 
+//                        // Imposta la variabile di blocco su false quando il timer termina
+//                        print("timer end")
+//                        
+//                        endTimerView = false
+//                    }
+//                }
             }
         }
     }
