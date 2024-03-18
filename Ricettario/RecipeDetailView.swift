@@ -45,16 +45,20 @@ struct RecipeDetailView: View {
                     VStack{
                         HStack{
                             Spacer()
-                            Button(action: {
-                                toggleHeart()
-                            }) {
-                                Image(systemName: isHeartRed ? "heart.fill" : "heart")
-                                    .foregroundColor(isHeartRed ? .red : .white)
-                                    .padding(8)
-                                    .background(Color.black.opacity(0.6))
-                                    .clipShape(Circle())
-                                    .padding(8)
-                            }
+                            Button(action:  {
+                                                          toggleHeart()
+                                                          if(isHeartRed){
+                                                              watchConnector.sendMessage(key: "rmvPref", value: recipe.title)}
+                                                          else if (!isHeartRed){
+                                                              watchConnector.sendMessage(key: "addPref", value: recipe.title)}
+                                                      }){
+                                                          Image(systemName: isHeartRed ? "heart.fill" : "heart")
+                                                              .foregroundColor(isHeartRed ? .red : .white)
+                                                              .padding(8)
+                                                              .background(Color.black.opacity(0.6))
+                                                              .clipShape(Circle())
+                                                              .padding(8)
+                                                      }
                         }
                         Spacer()
                     }
