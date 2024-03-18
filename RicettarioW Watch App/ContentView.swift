@@ -44,12 +44,13 @@ struct ContentView: View {
                             // Utilizziamo RecipeCard per visualizzare la ricetta
                             ForEach(savedRec) { recipe in
                                 Button(action: {currentRecipe = recipe}) {
-                                    HStack{
+                                    HStack {
                                         Image(systemName: "heart.fill")
                                             .foregroundColor(.red)
                                         
                                         Text(recipe.title)
                                             .lineLimit(1)
+                                        
                                         Spacer()
                                     }
                                 }
@@ -100,52 +101,74 @@ struct ContentView: View {
                             Divider()
                         }
                         .opacity(timerRemaining > 0 ? 1 : 0)
-                            
+            
+                        Spacer()
                         
                         VStack(alignment: .leading) {
                             // Controlla se la ricetta è terminata
                             if currentInstruction < currentRecipe.instructions.count{
-                                Text(currentRecipe.instructions[currentInstruction].type)
-                                    .font(.system(size: 50))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                // TODO: rivedere grafica
-                                Text("\((currentRecipe.instructions[currentInstruction].timer ?? 0) / 60) min")
-                                    .bold()
-                                    .font(.system(size: 20))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                VStack {
+                                    Text(currentRecipe.instructions[currentInstruction].type)
+                                        .font(.system(size: 34))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                
-                                Text("\(currentRecipe.instructions[currentInstruction].text)\n\n\n")
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .opacity(0.5)
-                                    .lineLimit(4)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    // TODO: rivedere grafica
+                                    Text("\((currentRecipe.instructions[currentInstruction].timer ?? 0) / 60) min")
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .opacity(0.6)
                                     
+                                    
+                                    Text("\(currentRecipe.instructions[currentInstruction].text)\n\n\n")
+                                        .font(.system(size: 14))
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(3)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    
+                                }
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
                             }
                             else{
-                                // TODO: mettere 2 bottoni: 1 che porti il timer a 0 e faccia anticipare la fine della ricetta e uno che faccia rivisualizzare il timer
-                                
-                                // Fine Ricetta
-                                Text("")
-                                    .onAppear(){
-                                        // Se termina la ricetta ma c'è il timer in corso mostra solo quello
-                                        if isTimerRunning{
-                                            endTimerView = true
-                                        }
-                                        else{
-                                            endRecipe = true
-                                        }
+                                VStack {
+                                    Spacer()
+                                    
+                                    Button(action: {endTimerView = true}) {
+                                        Text("Timer")
+                                            .bold()
                                     }
-                                    .onChange(of: endTimerView){
-                                        if !isTimerRunning{
-                                            endRecipe = true
-                                        }
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {timerRemaining = 1}) {
+                                        Text("Finish Recipe")
+                                            .bold()
                                     }
+                                    
+                                    Spacer()
+                                    
+                                }
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
+                                .onAppear(){
+                                    // Se termina la ricetta ma c'è il timer in corso mostra solo quello
+                                    if isTimerRunning{
+                                        endTimerView = true
+                                    }
+                                    else{
+                                        endRecipe = true
+                                    }
+                                }
+                                .onChange(of: endTimerView){
+                                    if !isTimerRunning{
+                                        endRecipe = true
+                                    }
+                                }
                             }
                             
                         }
-                        .padding()
+                        .padding(.horizontal)
                     }
                     
                 }
