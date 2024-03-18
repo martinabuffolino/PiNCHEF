@@ -37,7 +37,7 @@ struct HomeView: View {
                                 if self.isRecipeSaved(recipe) {
                                     self.recipeManager.deleteRecipe(recipe)
                                 } else {
-                                    self.recipeManager.savedRecipes.append(recipe)
+                                    self.recipeManager.addRecipe(recipe)
                                 }
                             })
                         }

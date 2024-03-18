@@ -1,8 +1,3 @@
-//
-//  ConnectivityProvider.swift
-//  SignalKApp
-//
-
 import Foundation
 import WatchConnectivity
 import Combine
